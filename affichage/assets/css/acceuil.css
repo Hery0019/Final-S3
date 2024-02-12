@@ -1,0 +1,35 @@
+body{
+    padding: 10px;
+    background-image: image('../assets/images/plantation-tea.jpg');
+    /* background-color: #79be79; */
+}
+
+.login{
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    border: solid 1px #79be79;
+    background-color: white;
+    box-shadow: 3px 3px 3px green; 
+    flex-grow: 1;
+}
+#submit{
+    background-color: #79be79;
+}
+.results{
+    padding: 30px;
+    width: 600px;
+    float: left;
+}
+.composants{
+    width: 340px;
+    height: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    border: solid 1px #79be79;
+    background-color: white;
+    box-shadow: 3px 3px 3px green; 
+    flex-grow: 1;
+    margin: 20px;
+    float: left;
+}
