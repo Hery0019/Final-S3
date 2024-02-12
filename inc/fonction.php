@@ -196,5 +196,28 @@
         }
         $pdo = null;
         return null;
-    }    
+    } 
+    
+    function updateSalaire($newMontant)
+    {
+        $pdo = dbconnect("mysql");
+
+        if ($pdo) {
+            try {
+                $query = "UPDATE salaire SET montant_kg = ?";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$newMontant]);
+
+                $rowCount = $stmt->rowCount();
+
+                return $rowCount;
+            } catch (PDOException $e) {
+                echo "Update failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }
+
 ?>
