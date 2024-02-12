@@ -63,6 +63,7 @@ insert into depense(nomDepense) values
 
 create table histoCueillettes( 
     idhisto int primary key auto_increment,
+    idPersonne int,
     date_cueillettes date,
     choix_cueilleur int,
     choix_parcelle int,
@@ -86,8 +87,8 @@ create table resultat(
     poids_restant_parcelles decimal(10,2),
 
 insert into histoCueillettes(date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
-    ('2023-06-10', 1, 1, 15.0),
-    ('2023-06-12', 2, 2, 12.5);
+    (2,'2023-06-10', 1, 1, 15.0),
+    (3,'2023-06-12', 2, 2, 12.5);
 
 -- Sample data for histoDepense table
 insert into histoDepense(idPersonne, date_depense, choix_depense, montant) values
