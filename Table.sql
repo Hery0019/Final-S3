@@ -1,20 +1,6 @@
 create database tea;
 use tea;
 
-insert into histoCueillettes(date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
-    ('2023-06-10', 1, 1, 15.0),
-    ('2023-06-12', 2, 2, 12.5);
-
--- Sample data for histoDepense table
-insert into histoDepense(date_depense, choix_depense, montant) values
-    ('2023-06-15', 1, 150.0),
-    ('2023-06-20', 2, 120.0);
-
--- Sample data for resultat table
-insert into resultat(poids_total_cueillette, poids_restant_parcelles, cout_revient) values
-    (27.5, 20.5, 270.0);
-
-
 create table categPers(
     idCateg int primary key,
     nomCateg VARCHAR(100)
@@ -61,7 +47,8 @@ create table parcelles(
     foreign key (variete) references variete(idVariete)
 );
 insert into parcelles(surface, variete) values
-    (20, 5);
+    (20, 8),
+    (20, 7);
 
 create table depense(
     idDepense int primary key auto_increment,
@@ -84,11 +71,12 @@ create table histoCueillettes(
     foreign key (idPers) references personnes(idPers)
 );
 insert into histoCueillettes(idPers, date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
-    (4, '2023-04-04', 6, 6, 10),
-    (4, '2023-04-14', 6, 6, 20),
-    (4, '2023-04-24', 6, 6, 10),
-    (4, '2023-04-29', 6, 6, 30),
-    (4, '2023-04-30', 6, 5, 10);
+    (4, '2023-04-04', 6, 11, 10),
+    (4, '2023-04-14', 6, 11, 20),
+    (4, '2023-04-24', 6, 11, 10),
+    (4, '2023-04-29', 6, 11, 30),
+    (4, '2023-04-30', 6, 12, 10),
+    (4, '2023-04-23', 6, 12, 30);
 
 create table histoDepense(
     idhisto int primary key auto_increment,
