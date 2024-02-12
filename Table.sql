@@ -85,6 +85,7 @@ create table histoCueillettes(
 
 create table histoDepense(
     idhisto int primary key auto_increment,
+    idPersonne int,
     date_depense date,
     choix_depense int,
     montant decimal(10,2),
