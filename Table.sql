@@ -1,18 +1,6 @@
 create database tea;
 use tea;
 
-insert into histoCueillettes(date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
-    ('2023-06-10', 1, 1, 15.0),
-    ('2023-06-12', 2, 2, 12.5);
-
--- Sample data for histoDepense table
-insert into histoDepense(date_depense, choix_depense, montant) values
-    ('2023-06-15', 1, 150.0),
-    ('2023-06-20', 2, 120.0);
-
--- Sample data for resultat table
-insert into resultat(poids_total_cueillette, poids_restant_parcelles, cout_revient) values
-    (27.5, 20.5, 270.0);
 
 
 create table categPers(
@@ -96,5 +84,18 @@ create table resultat(
     idresultat int primary key auto_increment,
     poids_total_cueillette decimal(10,2),
     poids_restant_parcelles decimal(10,2),
+
+insert into histoCueillettes(date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
+    ('2023-06-10', 1, 1, 15.0),
+    ('2023-06-12', 2, 2, 12.5);
+
+-- Sample data for histoDepense table
+insert into histoDepense(idPersonne, date_depense, choix_depense, montant) values
+    (2,'2023-06-15', 1, 150.0),
+    (3,'2023-06-20', 2, 120.0);
+
+-- Sample data for resultat table
+insert into resultat(poids_total_cueillette, poids_restant_parcelles, cout_revient) values
+    (27.5, 20.5, 270.0);
     cout_revient decimal(10,2)
 );
