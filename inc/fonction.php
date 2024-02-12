@@ -220,4 +220,28 @@
         return null;
     }
 
+    function total_recolte($date_debut, $date_fin, $idPers)
+    {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $date_debut = date('Y-m-d', strtotime($date_debut));
+                $date_fin = date('Y-m-d', strtotime($date_fin));
+
+                $query = "SELECT SUM(poids) as total_poids FROM histoCueillettes WHERE idPers = ? AND date_cueillettes >= ? AND date_cueillettes <= ?";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$idPers, $date_debut, $date_fin]);
+    
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                return $result['total_poids'];
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }    
 ?>
