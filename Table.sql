@@ -107,8 +107,6 @@ create table resultat(
     poids_restant_parcelles decimal(10,2),
     cout_revient decimal(10,2)
 );
-    cout_revient decimal(10,2)
-);
 
 insert into histoCueillettes(idPers, date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
     (2,'2023-06-10', 1, 1, 15.0),
