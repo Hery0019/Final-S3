@@ -131,4 +131,70 @@
         $pdo = null;
         return null;
     }
+
+    function insert_histo_cueillette($date_cueillettes, $choix_cueilleur, $choix_parcelle, $poids)
+    {
+        $pdo = dbconnect("mysql");
+
+        if ($pdo) {
+            try {
+                $query = "INSERT INTO histoCueillettes (date_cueillettes, choix_cueilleur, choix_parcelle, poids) VALUES (?, ?, ?, ?)";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$date_cueillettes, $choix_cueilleur, $choix_parcelle, $poids]);
+
+                $lastInsertId = $pdo->lastInsertId();
+
+                return $lastInsertId;
+            } catch (PDOException $e) {
+                echo "Insert failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }
+
+    function insert_histoDepense($date_depense, $choix_depense, $montant)
+    {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $query = "INSERT INTO histoDepense (date_depense, choix_depense, montant) VALUES (?, ?, ?)";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$date_depense, $choix_depense, $montant]);
+    
+                $lastInsertId = $pdo->lastInsertId();
+
+                return $lastInsertId;
+            } catch (PDOException $e) {
+                echo "Insert failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }    
+
+    function insert_resultat($poids_total_cueillette, $poids_restant_parcelles, $cout_revient)
+    {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $query = "INSERT INTO resultat (poids_total_cueillette, poids_restant_parcelles, cout_revient) VALUES (?, ?, ?)";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$poids_total_cueillette, $poids_restant_parcelles, $cout_revient]);
+    
+                $lastInsertId = $pdo->lastInsertId();
+    
+                return $lastInsertId;
+            } catch (PDOException $e) {
+                echo "Insert failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }    
 ?>
