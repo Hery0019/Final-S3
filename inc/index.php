@@ -58,13 +58,49 @@
     //     echo "Insert failed.";
     // }
 
-    $nomDepense = 'Fertilizer';
-    $result = insert_depense($nomDepense);
+    // $nomDepense = 'Fertilizer';
+    // $result = insert_depense($nomDepense);
+
+    // if ($result !== null) {
+    //     echo "Depense inserted successfully. Last Inserted ID: " . $result;
+    // } else {
+    //     echo "Insert failed.";
+    // }
+
+    // $date_cueillettes = '2024-02-12';
+    // $choix_cueilleur = 1; // Replace with the actual ID from the variete table
+    // $choix_parcelle = 1; // Replace with the actual ID from the parcelles table
+    // $poids = 15.0;
+
+    // $result = insert_histo_cueillette($date_cueillettes, $choix_cueilleur, $choix_parcelle, $poids);
+
+    // if ($result !== null) {
+    //     echo "Historique de cueillette inserted successfully. Last Inserted ID: " . $result;
+    // } else {
+    //     echo "Insert failed.";
+    // }
+
+    // $date_depense = '2024-02-12';
+    // $choix_depense = 1;
+    // $montant = 50.0;
+
+    // $result = insert_histoDepense($date_depense, $choix_depense, $montant);
+
+    // if ($result !== null) {
+    //     echo "Historique de depense inserted successfully. Last Inserted ID: " . $result;
+    // } else {
+    //     echo "Insert failed.";
+    // }
+
+    $poids_total_cueillette = 100.0;
+    $poids_restant_parcelles = 20.0;
+    $cout_revient = 150.0;
+
+    $result = insert_resultat($poids_total_cueillette, $poids_restant_parcelles, $cout_revient);
 
     if ($result !== null) {
-        echo "Depense inserted successfully. Last Inserted ID: " . $result;
+        echo "Resultat inserted successfully. Last Inserted ID: " . $result;
     } else {
         echo "Insert failed.";
     }
-
 ?>
