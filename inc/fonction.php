@@ -11,7 +11,6 @@
             $stmt->execute([$mon, $mdp]);
             
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            $pdo = null;
 
             if ($user) {
                 return $user;
@@ -19,6 +18,7 @@
                 return null;
             }
         }
+        $pdo = null;
         return null;
     }
 
@@ -31,7 +31,6 @@
                 $stmt = $pdo->query($requete);
 
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $pdo = null;
 
                 return $result;
             } catch (PDOException $e) {
@@ -39,6 +38,7 @@
                 return null;
             }
         }
+        $pdo = null;
         return null;
     }
 
@@ -53,7 +53,6 @@
                 $stmt->execute([$nomVariete, $occupation, $rendement]);
     
                 $lastInsertId = $pdo->lastInsertId();
-                $pdo = null;
     
                 return $lastInsertId;
             } catch (PDOException $e) {
@@ -61,6 +60,7 @@
                 return null;
             }
         }
+        $pdo = null;
         return null;
     }
 
@@ -75,7 +75,6 @@
                 $stmt->execute([$surface, $variete]);
     
                 $lastInsertId = $pdo->lastInsertId();
-                $pdo = null;
     
                 return $lastInsertId;
             } catch (PDOException $e) {
@@ -83,6 +82,7 @@
                 return null;
             }
         }
+        $pdo = null;
         return null;
     }
 
@@ -99,7 +99,6 @@
                 $stmt->execute([$nomPers, $genre, $date_naissance, $idCateg, $mdp]);
     
                 $lastInsertId = $pdo->lastInsertId();
-                $pdo = null;
     
                 return $lastInsertId;
             } catch (PDOException $e) {
@@ -107,7 +106,29 @@
                 return null;
             }
         }
-    
+        $pdo = null;
+        return null;
+    }
+
+    function insert_depense($nomDepense)
+    {
+        $pdo = dbconnect("mysql");
+
+        if ($pdo) {
+            try {
+                $query = "INSERT INTO depense (nomDepense) VALUES (?)";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$nomDepense]);
+
+                $lastInsertId = $pdo->lastInsertId();
+
+                return $lastInsertId;
+            } catch (PDOException $e) {
+                echo "Insert failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
         return null;
     }
 ?>

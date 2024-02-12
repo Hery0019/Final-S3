@@ -45,16 +45,26 @@
     //     echo "Insert failed.";
     // }
 
-    $nomPers = 'John Doe';
-    $genre = 'M';
-    $date_naissance = '1990-05-15';
-    $mdp = 'john';
+    // $nomPers = 'John Doe';
+    // $genre = 'M';
+    // $date_naissance = '1990-05-15';
+    // $mdp = 'john';
 
-    $result = insert_personnes($nomPers, $genre, $date_naissance, $mdp);
+    // $result = insert_personnes($nomPers, $genre, $date_naissance, $mdp);
+
+    // if ($result !== null) {
+    //     echo "Personne inserted successfully. Last Inserted ID: " . $result;
+    // } else {
+    //     echo "Insert failed.";
+    // }
+
+    $nomDepense = 'Fertilizer';
+    $result = insert_depense($nomDepense);
 
     if ($result !== null) {
-        echo "Personne inserted successfully. Last Inserted ID: " . $result;
+        echo "Depense inserted successfully. Last Inserted ID: " . $result;
     } else {
         echo "Insert failed.";
     }
+
 ?>
