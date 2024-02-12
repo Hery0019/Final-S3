@@ -1,0 +1,55 @@
+EXAMEN – Février 2024– P16/P3DS
+12h10 à 18h10 (le lendemain)
+Objectifs
+On veut mettre en place une application qui permet de gérer la production et la cueillette de thé.
+Il y a plusieurs variétés de thé. 
+On cultive le thé sur différent parcelle
+Cueilleur : la personne qui cueille 
+
+Technique
+Base de données Mysql
+Créer des données de test
+Ne pas utiliser de framework PHP
+Le site sera hébergé sur le serveur de l’ITU
+Mettre le nom et le num ETU des membres du projet sur le footer.
+Vous pouvez utiliser un template existant ou créer à partir de boostrap
+
+Délai et livraison
+A déployer avant le 13 février 2023 à 18h10.
+A Préparer 
+Le lien url sur le serveur de ITU
+Le lien pour voir une copie d’écran des scripts de création des tables
+Un lien google sheet public pour la liste des tâches
+Un lien GIT accessible en public
+
+
+
+Fonctionnalités (partie 1 sur 3)
+Backoffice (page admin)
+Login admin (mettre le login par défaut sur le formulaire)
+Gestion de variété de thé (nom variété de thé, occupation (ex : 1 pied occupe 1,8m2 ) , le rendement par pied ( ex : kg de feuille par mois)
+Gestion des parcelles (numéro parcelle, surface en hectare, variété de thé planté)
+Gestion des cueilleurs (nom, genre, date de naissance)
+Gestion des catégories de dépenses (ex : engrais, carburant, logistique, …)
+Configuration montant salaire par kg des cueilleurs 
+
+Frontoffice (utilisateur)
+Login utilisateur (mettre le login par défaut sur le formulaire)
+Page pour la saisie des cueillettes
+Date
+Choix cueilleur
+Choix parcelle
+Poids cueilli
+Validation AJAX, si le poids est supérieur au kg de feuille restant sur la parcelle
+Page pour la saisie des dépenses
+Date
+Choix catégorie dépense
+Montant
+Page de résultat
+Global
+Poids total cueillette
+Poids restant sur les parcelles
+Coût de revient / kg
+
+
+
