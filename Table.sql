@@ -63,21 +63,23 @@ insert into depense(nomDepense) values
 
 create table histoCueillettes( 
     idhisto int primary key auto_increment,
-    idPersonne int,
+    idPers int,
     date_cueillettes date,
     choix_cueilleur int,
     choix_parcelle int,
     poids decimal(10,2),
+    foreign key (idPers) references personnes(idPers),
     foreign key (choix_cueilleur) references variete(idVariete),
     foreign key (choix_parcelle) references parcelles(idParcelle)
 );
 
 create table histoDepense(
     idhisto int primary key auto_increment,
-    idPersonne int,
+    idPers int,
     date_depense date,
     choix_depense int,
     montant decimal(10,2),
+    foreign key (idPers) references personnes(idPers),
     foreign key (choix_depense) references depense(idDepense)
 );
 
@@ -85,23 +87,24 @@ create table resultat(
     idresultat int primary key auto_increment,
     poids_total_cueillette decimal(10,2),
     poids_restant_parcelles decimal(10,2),
+    cout_revient decimal(10,2)
+);
 
-insert into histoCueillettes(date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
+insert into histoCueillettes(idPers, date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
     (2,'2023-06-10', 1, 1, 15.0),
     (3,'2023-06-12', 2, 2, 12.5);
 
 -- Sample data for histoDepense table
-insert into histoDepense(idPersonne, date_depense, choix_depense, montant) values
+insert into histoDepense(idPers, date_depense, choix_depense, montant) values
     (2,'2023-06-15', 1, 150.0),
     (3,'2023-06-20', 2, 120.0);
 
 -- Sample data for resultat table
 insert into resultat(poids_total_cueillette, poids_restant_parcelles, cout_revient) values
     (27.5, 20.5, 270.0);
-    cout_revient decimal(10,2)
-);
+
 
 CREATE or replace VIEW historique_depenses AS
-SELECT hd.idhisto, hd.idPersonne, hd.date_depense, d.nomDepense AS nom_depense, hd.montant
+SELECT hd.idhisto, hd.idPers, hd.date_depense, d.nomDepense AS nom_depense, hd.montant
 FROM histoDepense hd
 INNER JOIN depense d ON hd.choix_depense = d.idDepense;
