@@ -100,7 +100,7 @@ insert into resultat(poids_total_cueillette, poids_restant_parcelles, cout_revie
     cout_revient decimal(10,2)
 );
 
-CREATE VIEW historique_depenses AS
+CREATE or replace VIEW historique_depenses AS
 SELECT hd.idhisto, hd.idPersonne, hd.date_depense, d.nomDepense AS nom_depense, hd.montant
 FROM histoDepense hd
 INNER JOIN depense d ON hd.choix_depense = d.idDepense;
