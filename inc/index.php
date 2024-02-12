@@ -92,15 +92,24 @@
     //     echo "Insert failed.";
     // }
 
-    $poids_total_cueillette = 100.0;
-    $poids_restant_parcelles = 20.0;
-    $cout_revient = 150.0;
+    // $poids_total_cueillette = 100.0;
+    // $poids_restant_parcelles = 20.0;
+    // $cout_revient = 150.0;
 
-    $result = insert_resultat($poids_total_cueillette, $poids_restant_parcelles, $cout_revient);
+    // $result = insert_resultat($poids_total_cueillette, $poids_restant_parcelles, $cout_revient);
+
+    // if ($result !== null) {
+    //     echo "Resultat inserted successfully. Last Inserted ID: " . $result;
+    // } else {
+    //     echo "Insert failed.";
+    // }
+
+    $newMontant = 12.5;
+    $result = updateSalaire($newMontant);
 
     if ($result !== null) {
-        echo "Resultat inserted successfully. Last Inserted ID: " . $result;
+        echo "Update successful. Number of affected rows: " . $result;
     } else {
-        echo "Insert failed.";
+        echo "Update failed.";
     }
 ?>
