@@ -24,6 +24,9 @@
                 <div class="login">
                     <form action="pages/traitement.php" method="get">
                         <h3>Login</h3>
+                        <?php if (!empty($error)): ?>
+                            <span class="error"><?php echo $error; ?></span>
+                        <?php endif; ?>
                         <p>Nom d'Utilisateur :</p>
                         <p> <input type="text" name="nomUser" class="form-control"></p>
                         <p>Mot de passe :</p>
