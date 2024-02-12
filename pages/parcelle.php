@@ -1,5 +1,6 @@
 <?php 
-
+    include("../inc/fonction.php");
+    $listeParcelles = select("select * from parcelles");
 ?>
 
 <!DOCTYPE html>
@@ -25,35 +26,15 @@
         <hr>
         <table class="table">
             <tr>
-                <th>ID</th>
-                <th>Tay1</th>
-                <th>Tay2</th>
-                <th>Valeur</th>
+                <th>Surface</th>
+                <th>Variete</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
+            <?php foreach ($listeParcelles as $listeParcelle) {?>
+                <tr>
+                    <td><?php echo $listeParcelle['surface'] ?></td>
+                    <td><?php echo $listeParcelle['variete'] ?></td>
+                </tr>
+            <?php } ?>
         </table>
     </div>
     <div class="results">
