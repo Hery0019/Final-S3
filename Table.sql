@@ -29,12 +29,14 @@ create table personnes(
     genre CHAR,
     date_naissance date,
     idCateg int,
+    mdp VARCHAR(100),
     foreign key (idCateg) references categPers(idCateg)
 );
-insert into personnes(nomPers, genre, date_naissance, idCateg) values
-    ('John Doe', 'M', '1990-05-15', 1),
-    ('Jane Doe', 'F', '1985-12-28', 2),
-    ('Alice Smith', 'F', '1995-08-20', 2);
+insert into personnes(nomPers, genre, date_naissance, idCateg, mdp) values
+    ('Rebeca RKT', 'F', '2006-06-07', 2, 'rebeca'),
+    ('John Doe', 'M', '1990-05-15', 2, 'john'),
+    ('Jane Doe', 'F', '1985-12-28', 2, 'jane'),
+    ('Alice Smith', 'F', '1995-08-20', 2, 'alice');
 
 create table salaire(
     montant_kg decimal(10,2)
