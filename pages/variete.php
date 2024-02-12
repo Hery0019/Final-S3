@@ -1,5 +1,6 @@
-<?php 
-
+<?php
+    include("../inc/fonction.php");
+    $listeVarietes = select("select * from variete");
 ?>
 
 <!DOCTYPE html>
@@ -25,35 +26,18 @@
         <hr>
         <table class="table">
             <tr>
-                <th>ID</th>
-                <th>Tay1</th>
-                <th>Tay2</th>
-                <th>Valeur</th>
+                <th>Nom</th>
+                <th>Occupation</th>
+                <th>Rendement</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
+            <?php foreach ($listeVarietes as $listeVariete) {?>
+                <tr>
+                    <td><?php echo $listeVariete['nomVariete'] ?></td>
+                    <td><?php echo $listeVariete['occupation'] ?></td>
+                    <td><?php echo $listeVariete['rendement'] ?></td>
+                </tr>
+            <?php } ?>
+
         </table>
     </div>
     <div class="results">

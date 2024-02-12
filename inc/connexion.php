@@ -2,7 +2,7 @@
     function dbconnect($base)
     {
         $dsn = null;
-        $username = null;
+        $username = "null";
         $password = null;
         if (isset($base)) {
             $sgbd = $base;
