@@ -104,12 +104,24 @@
     //     echo "Insert failed.";
     // }
 
-    $newMontant = 12.5;
-    $result = updateSalaire($newMontant);
+    // $newMontant = 12.5;
+    // $result = updateSalaire($newMontant);
+
+    // if ($result !== null) {
+    //     echo "Update successful. Number of affected rows: " . $result;
+    // } else {
+    //     echo "Update failed.";
+    // }
+
+    $date_debut = '01-04-2023';
+    $date_fin = '20-04-2023';
+    $idPers = 4; 
+
+    $result = total_recolte($date_debut, $date_fin, $idPers);
 
     if ($result !== null) {
-        echo "Update successful. Number of affected rows: " . $result;
+        echo "Total recolte between $date_debut and $date_fin for idPers $idPers: $result kg";
     } else {
-        echo "Update failed.";
+        echo "Query failed.";
     }
 ?>
