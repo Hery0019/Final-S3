@@ -28,7 +28,6 @@
                 </div>
             </center>
         </div>
-        <a href="assets/images/plantation-tea.jpg">img</a>
 </body>
 <footer>2512 - 2502 - 2720</footer>
 </html>
