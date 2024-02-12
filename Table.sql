@@ -1,6 +1,18 @@
 create database tea;
 use tea;
 
+insert into histoCueillettes(date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
+    ('2023-06-10', 1, 1, 15.0),
+    ('2023-06-12', 2, 2, 12.5);
+
+-- Sample data for histoDepense table
+insert into histoDepense(date_depense, choix_depense, montant) values
+    ('2023-06-15', 1, 150.0),
+    ('2023-06-20', 2, 120.0);
+
+-- Sample data for resultat table
+insert into resultat(poids_total_cueillette, poids_restant_parcelles, cout_revient) values
+    (27.5, 20.5, 270.0);
 
 
 create table categPers(
@@ -39,8 +51,8 @@ create table variete(
     rendement decimal(10,2)
 );
 insert into variete(nomVariete, occupation, rendement) values
-    ('Green Tea', 1.8, 3.0),
-    ('Black Tea', 1.8, 5.0);
+    ('Green Tea', 1, 5.0),
+    ('Black Tea', 1, 5.0);
 
 create table parcelles(
     idParcelle int primary key auto_increment,
@@ -49,8 +61,7 @@ create table parcelles(
     foreign key (variete) references variete(idVariete)
 );
 insert into parcelles(surface, variete) values
-    (1.20, 1),
-    (1.20, 2);
+    (20, 5);
 
 create table depense(
     idDepense int primary key auto_increment,
@@ -65,13 +76,20 @@ create table histoCueillettes(
     idhisto int primary key auto_increment,
     idPers int,
     date_cueillettes date,
-    choix_cueilleur int,
+    choix_cueilleur int,    
     choix_parcelle int,
     poids decimal(10,2),
     foreign key (idPers) references personnes(idPers),
     foreign key (choix_cueilleur) references variete(idVariete),
-    foreign key (choix_parcelle) references parcelles(idParcelle)
+    foreign key (choix_parcelle) references parcelles(idParcelle),
+    foreign key (idPers) references personnes(idPers)
 );
+insert into histoCueillettes(idPers, date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
+    (4, '2023-04-04', 6, 6, 10),
+    (4, '2023-04-14', 6, 6, 20),
+    (4, '2023-04-24', 6, 6, 10),
+    (4, '2023-04-29', 6, 6, 30),
+    (4, '2023-04-30', 6, 5, 10);
 
 create table histoDepense(
     idhisto int primary key auto_increment,
@@ -87,6 +105,8 @@ create table resultat(
     idresultat int primary key auto_increment,
     poids_total_cueillette decimal(10,2),
     poids_restant_parcelles decimal(10,2),
+    cout_revient decimal(10,2)
+);
     cout_revient decimal(10,2)
 );
 
