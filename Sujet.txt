@@ -27,7 +27,7 @@ Un lien GIT accessible en public
 Fonctionnalités (partie 1 sur 3)
 Backoffice (page admin)
 Login admin (mettre le login par défaut sur le formulaire)
-Gestion de variété de thé (nom variété de thé, occupation (ex : 1 pied occupe 1,8m2 ) , le rendement par pied ( ex : kg de feuille par mois)
+Gestion de variété de thé (nom variété de thé, occupation (ex : 1 pied occupe 1,8m2 ) , le rendement par pied ( ex : kg de feuille par mois))
 Gestion des parcelles (numéro parcelle, surface en hectare, variété de thé planté)
 Gestion des cueilleurs (nom, genre, date de naissance)
 Gestion des catégories de dépenses (ex : engrais, carburant, logistique, …)
