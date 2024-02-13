@@ -120,11 +120,19 @@
 
     // poid_min(1, 70.5);
 
-    // $date_debut = '01-04-2023';
-    // $date_fin = '31-04-2023';
+    $date_debut = '01-06-2006';
+    $date_fin = '20-06-2006';
     // $date_cuellie = '2023-04-31';
-    // $idPers = 4; 
-    // $idParcelle = 11;
+    $idPers = 8; 
+    $idParcelle = 12;
+    $result = salaire($idPers, $idParcelle, $date_debut, $date_fin);
+    if ($result !== null) {
+        echo "Salaire Normal: {$result['salaire_normal']}<br>";
+        echo "Bonus / Malus: {$result['bonus']}<br>";
+        echo "Salaire Total: {$result['salaire_total']}<br>";
+    } else {
+        echo "Failed to calculate salary.";
+    }   
 
     // $result = reste($idParcelle, $date_cuellie, $idPers) ;
     // if ($result !== null) {

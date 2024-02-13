@@ -465,6 +465,10 @@
     
         if ($pdo) {
             try {
+
+                $date_debut = date('Y-m-d', strtotime($date_debut));
+                $date_fin = date('Y-m-d', strtotime($date_fin));
+
                 $stmt1 = $pdo->query("SELECT montant_kg FROM salaire");
                 $montant_kg = $stmt1->fetchColumn();
     
@@ -478,20 +482,28 @@
     
                 $karama = $montant_kg * $total_poids;
                 $salaires = 0;
+                $bonus = 0;
     
                 if ($poids_min < $total_poids) {
                     $restant = $total_poids - $poids_min;
                     $pourcentage = ($restant * 100) / $poids_min;
-                    $salaires = $karama + (($karama * $pourcentage) / 100);
+                    $bonus = ($karama * $pourcentage)/100;
+                    $salaires = $karama + $bonus;
                 } elseif ($poids_min > $total_poids) {
                     $restant = $poids_min - $total_poids;
                     $pourcentage = ($restant * 100) / $poids_min;
-                    $salaires = $karama - (($karama * $pourcentage) / 100);
+                    $bonus = ($karama * $pourcentage)/100;
+                    $salaires = $karama - $bonus;
                 } else {
                     $salaires = $karama;
                 }
     
-                return $salaires;
+                return 
+                [
+                    'salaire_normal' => $karama,
+                    'bonus' => $bonus,
+                    'salaire_total' => $salaires,
+                ];
     
             } catch (PDOException $e) {
                 echo "Query failed: " . $e->getMessage();
