@@ -3,7 +3,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Vérifier si les champs sont définis et non vides
-        if (isset($_POST['dateDepense']) && isset($_POST['poidsMin'])) {
+        if (isset($_POST['employe']) && isset($_POST['poidsMin'])) {
             $employe = $_POST['employe'];
             $poidsMin = $_POST['poidsMin'];
 
@@ -27,8 +27,8 @@
                         <?php } ?>
                     </select>
                     <p>Poid minimum (kg)</p>
-                    <p><input type="number" class="form-control"></p>
-                    <p><input type="submit" name="poidsMin" id="submit" class="form-control" value="Sauvegarder"></p>
+                    <p><input type="number" name="poidsMin" class="form-control"></p>
+                    <p><input type="submit"  id="submit" class="form-control" value="Sauvegarder"></p>
             </div>
         </form>
     </div>
