@@ -37,5 +37,8 @@
             </center>
         </div>
 </body>
-
+<footer>
+    <p>Admin --- > nom : Hery , mdp : hery</p>
+    <p>User --- > nom : Alice Smith , mdp : alice</p>
+</footer>
 </html>

@@ -71,4 +71,9 @@
             <h4>Montant des depenses</h4>
             <p class="info"><?php echo montant_depense($date_debut, $date_fin, $idPers) ?> Ar</p>
         </div>
+
+        <div class="composants">
+            <h4>Montant Benefice</h4>
+            <p class="info"><?php echo benefice($date_debut, $date_fin, $idPers) ?> Ar</p>
+        </div>
     </div>
