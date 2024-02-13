@@ -45,9 +45,11 @@ create table variete(
     occupation decimal(10,2),
     rendement decimal(10,2)
 );
-insert into variete(nomVariete, occupation, rendement) values
-    ('Green Tea', 1, 5.0),
-    ('Black Tea', 1, 5.0);
+ALTER TABLE variete
+ADD COLUMN prix decimal(10,2);
+insert into variete(nomVariete, occupation, rendement, prix) values
+    ('Green Tea', 1, 5.0, 150),
+    ('Black Tea', 1, 5.0, 160);
 
 create table parcelles(
     idParcelle int primary key auto_increment,

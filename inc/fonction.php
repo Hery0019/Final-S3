@@ -132,15 +132,15 @@
         return null;
     }
 
-    function insert_histo_cueillette($date_cueillettes, $choix_cueilleur, $choix_parcelle, $poids)
+    function insert_histo_cueillette($date_cueillettes, $choix_parcelle, $poids)
     {
         $pdo = dbconnect("mysql");
 
         if ($pdo) {
             try {
-                $query = "INSERT INTO histoCueillettes (date_cueillettes, choix_cueilleur, choix_parcelle, poids) VALUES (?, ?, ?, ?)";
+                $query = "INSERT INTO histoCueillettes (date_cueillettes, choix_parcelle, poids) VALUES (?, ?, ?)";
                 $stmt = $pdo->prepare($query);
-                $stmt->execute([$date_cueillettes, $choix_cueilleur, $choix_parcelle, $poids]);
+                $stmt->execute([$date_cueillettes, $choix_parcelle, $poids]);
 
                 $lastInsertId = $pdo->lastInsertId();
 
@@ -512,8 +512,56 @@
                 $pdo = null;
             }
         }
-    
         return null;
     }
     
+    function salaire_cueilleur($idPers, $date_debut, $date_fin) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+
+                $date_debut = date('Y-m-d', strtotime($date_debut));
+                $date_fin = date('Y-m-d', strtotime($date_fin));
+
+                $stmt1 = $pdo->query("SELECT montant_kg FROM salaire");
+                $montant_kg = $stmt1->fetchColumn();
+    
+                $stmt2 = $pdo->prepare("SELECT poids_min FROM poids_min WHERE idPers = ?");
+                $stmt2->execute([$idPers]);
+                $poids_min = $stmt2->fetchColumn();
+    
+                $stmt3 = $pdo->prepare("SELECT SUM(poids) AS total_poids FROM histoCueillettes WHERE date_cueillettes <= ? AND date_cueillettes >= ?");
+                $stmt3->execute([$date_fin, $date_debut]);
+                $total_poids = $stmt3->fetchColumn();
+    
+                $karama = $montant_kg * $total_poids;
+                $salaires = 0;
+                $bonus = 0;
+    
+                if ($poids_min < $total_poids) {
+                    $restant = $total_poids - $poids_min;
+                    $pourcentage = ($restant * 100) / $poids_min;
+                    $bonus = ($karama * $pourcentage)/100;
+                    $salaires = $karama + $bonus;
+                } elseif ($poids_min > $total_poids) {
+                    $restant = $poids_min - $total_poids;
+                    $pourcentage = ($restant * 100) / $poids_min;
+                    $bonus = ($karama * $pourcentage)/100;
+                    $salaires = $karama - $bonus;
+                } else {
+                    $salaires = $karama;
+                }
+    
+                return $salaires;
+    
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            } finally {
+                $pdo = null;
+            }
+        }
+        return null;
+    }
 ?>
