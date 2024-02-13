@@ -137,3 +137,8 @@ SELECT hc.idhisto, hc.idPers, hc.date_cueillettes, v.nomVariete, p.surface, hc.p
 FROM histoCueillettes hc
 JOIN parcelles p ON hc.choix_parcelle = p.idParcelle
 JOIN variete v ON p.variete = v.idVariete;
+
+CREATE or replace VIEW vue_parcelle_variete AS
+SELECT p.idParcelle, p.surface, v.nomVariete
+FROM parcelles p
+JOIN variete v ON p.variete = v.idVariete;
