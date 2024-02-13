@@ -1,26 +1,7 @@
 <?php 
-    include("../inc/fonction.php");
     $listeSalaires = select("select * from salaire")
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/acceuil.css">
-</head>
-<body>
-    <ul class="nav nav-tabs">
-        <li role="presentation" ><a href="acceuil_admin.html">Home</a></li>
-            <li role="presentation" ><a href="variete.html">Variete</a></li>
-            <li role="presentation" ><a href="parcelle.html">Parcelle</a></li>
-            <li role="presentation" ><a href="cueilleur.html">Cueilleur</a></li>
-            <li role="presentation"><a href="categorie_depense.html">Categorie Depense</a></li>
-            <li role="presentation" class="active"><a href="#">Salaire</a></li>
-    </ul>
     <div class="results">
         <p>Liste des Salaires :</p>
         <hr>
@@ -48,5 +29,3 @@
         </center>
 
     </div>
-</body>
-</html>

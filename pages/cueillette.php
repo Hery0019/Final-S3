@@ -1,57 +1,27 @@
 <?php 
-
+    $historiqueCueilletes = select("select * from vue_histo_cueillettes where idPers = " . $idPers);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/acceuil.css">
-</head>
-<body>
-    <ul class="nav nav-tabs">
-        <li role="presentation" ><a href="acceuil_employe.html">Home</a></li>
-        <li role="presentation" class="active"><a href="#">Cueillette</a></li>
-        <li role="presentation" ><a href="depense.html">Depense</a></li>
-        <!-- <li role="presentation"><a href="#">Messages</a></li> -->
-    </ul>
     <div class="results">
-        <p>Liste de VOS Cueillettes :</p>
+        <p>Liste de Vos Cueillettes :</p>
         <hr>
         <table class="table">
             <tr>
-                <th>ID</th>
-                <th>Tay1</th>
-                <th>Tay2</th>
-                <th>Valeur</th>
+                <th>Date de cueillette</th>
+                <th>Nom du variete</th>
+                <th>Surface</th>
+                <th>Poids</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
+
+            <?php foreach ($historiqueCueilletes as $historiqueCueillete) {?>
+                <tr>
+                    <td><?php echo $historiqueCueillete['date_cueillettes'] ?></td>
+                    <td><?php echo $historiqueCueillete['nomVariete'] ?></td>
+                    <td><?php echo $historiqueCueillete['surface'] ?></td>
+                    <td><?php echo $historiqueCueillete['poids'] ?></td>
+                </tr>
+            <?php } ?>
+
         </table>
     </div>
     <div class="results">
@@ -82,5 +52,3 @@
         </div>
     </center>
     </div>
-</body>
-</html>

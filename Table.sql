@@ -22,7 +22,8 @@ insert into personnes(nomPers, genre, date_naissance, idCateg, mdp) values
     ('Rebeca RKT', 'F', '2006-06-07', 2, 'rebeca'),
     ('John Doe', 'M', '1990-05-15', 2, 'john'),
     ('Jane Doe', 'F', '1985-12-28', 2, 'jane'),
-    ('Alice Smith', 'F', '1995-08-20', 2, 'alice');
+    ('Alice Smith', 'F', '1995-08-20', 2, 'alice'),
+    ('Hery', 'H', '2014-03-10', '1', 'hery'); --admin
 
 create table salaire(
     montant_kg decimal(10,2)

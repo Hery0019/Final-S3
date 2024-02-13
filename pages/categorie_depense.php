@@ -1,59 +1,22 @@
 <?php 
-
+    $typeDepenses = select("select * from depense");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/acceuil.css">
-</head>
-<body>
-    <ul class="nav nav-tabs">
-        <li role="presentation" ><a href="acceuil_admin.html">Home</a></li>
-            <li role="presentation" ><a href="variete.html">Variete</a></li>
-            <li role="presentation" ><a href="parcelle.html">Parcelle</a></li>
-            <li role="presentation" ><a href="cueilleur.html">Cueilleur</a></li>
-            <li role="presentation" class="active"><a href="#">Categorie Depense</a></li>
-            <li role="presentation"><a href="salaire.html">Salaire</a></li>
-    </ul>
     <div class="results">
         <p>Liste de Type de Depense :</p>
         <hr>
         <table class="table">
             <tr>
-                <th>ID</th>
-                <th>Tay1</th>
-                <th>Tay2</th>
-                <th>Valeur</th>
+                <th>Numero</th>
+                <th>Nom</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>tay</td>
-                <td>tay kely</td>
-                <td>1000</td>
-            </tr>
+
+            <?php foreach ($typeDepenses as $typeDepense) {?>
+                <tr>
+                    <td><?php echo $typeDepense['idDepense'] ?></td>
+                    <td><?php echo $typeDepense['nomDepense'] ?></td>
+                </tr>
+            <?php } ?>
         </table>
     </div>
     <div class="results">
@@ -68,5 +31,3 @@
         </center>
 
     </div>
-</body>
-</html>
