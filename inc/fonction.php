@@ -355,6 +355,26 @@
                 $pdo = null;
             }
         }
+
+        function compte_ligne($table) {
+            $pdo = dbconnect("mysql");
+
+            if ($pdo) {
+                try {
+                    $query = "SELECT count(*) from ?";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute([$table]);
+        
+                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                } catch (PDOException $e) {
+                    echo "Query failed: " . $e->getMessage();
+                    return null;
+                }
+            }
+            $pdo = null;
+        }
     }
 
     function insert_generer($mois) {
