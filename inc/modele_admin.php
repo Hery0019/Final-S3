@@ -27,6 +27,7 @@
         <li role="presentation"><a href="modele_admin.php?page=cueilleur">Cueilleur</a></li>
         <li role="presentation"><a href="modele_admin.php?page=categorie_depense">Categorie Depense</a></li>
         <li role="presentation"><a href="modele_admin.php?page=salaire">Salaire</a></li>
+        <li role="presentation"><a href="modele_admin.php?page=configuration">Configuation</a></li>
         <li role="presentation"><a href="deconnexion.php">Deconnexion</a></li>
     </ul>
         
