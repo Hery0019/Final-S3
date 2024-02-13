@@ -154,15 +154,15 @@
         return null;
     }
 
-    function insert_histoDepense($date_depense, $choix_depense, $montant)
+    function insert_histoDepense($idPers, $date_depense, $choix_depense, $montant)
     {
         $pdo = dbconnect("mysql");
     
         if ($pdo) {
             try {
-                $query = "INSERT INTO histoDepense (date_depense, choix_depense, montant) VALUES (?, ?, ?)";
+                $query = "INSERT INTO histoDepense (idPers, date_depense, choix_depense, montant) VALUES (?, ?, ?, ?)";
                 $stmt = $pdo->prepare($query);
-                $stmt->execute([$date_depense, $choix_depense, $montant]);
+                $stmt->execute([$idPers, $date_depense, $choix_depense, $montant]);
     
                 $lastInsertId = $pdo->lastInsertId();
 
