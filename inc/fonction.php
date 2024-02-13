@@ -460,14 +460,12 @@
         return null;
     }
 
-    function salaire($idPers, $idParcelle, $date_debut, $date_fin) {
+    function salaire($idPers, $date) {
         $pdo = dbconnect("mysql");
     
         if ($pdo) {
             try {
-
-                $date_debut = date('Y-m-d', strtotime($date_debut));
-                $date_fin = date('Y-m-d', strtotime($date_fin));
+                $date = date('Y-m-d', strtotime($date));
 
                 $stmt1 = $pdo->query("SELECT montant_kg FROM salaire");
                 $montant_kg = $stmt1->fetchColumn();
@@ -476,13 +474,14 @@
                 $stmt2->execute([$idPers]);
                 $poids_min = $stmt2->fetchColumn();
     
-                $stmt3 = $pdo->prepare("SELECT SUM(poids) AS total_poids FROM histoCueillettes WHERE choix_parcelle = ? AND date_cueillettes <= ? AND date_cueillettes >= ?");
-                $stmt3->execute([$idParcelle, $date_fin, $date_debut]);
+                $stmt3 = $pdo->prepare("SELECT SUM(poids) AS total_poids FROM histoCueillettes where date_cueillettes = ?");
+                $stmt3->execute([$date]);
                 $total_poids = $stmt3->fetchColumn();
     
                 $karama = $montant_kg * $total_poids;
                 $salaires = 0;
                 $bonus = 0;
+                $malus = 0;
     
                 if ($poids_min < $total_poids) {
                     $restant = $total_poids - $poids_min;
@@ -492,8 +491,8 @@
                 } elseif ($poids_min > $total_poids) {
                     $restant = $poids_min - $total_poids;
                     $pourcentage = ($restant * 100) / $poids_min;
-                    $bonus = ($karama * $pourcentage)/100;
-                    $salaires = $karama - $bonus;
+                    $malus = ($karama * $pourcentage)/100;
+                    $salaires = $karama - $malus;
                 } else {
                     $salaires = $karama;
                 }
@@ -502,6 +501,7 @@
                 [
                     'salaire_normal' => $karama,
                     'bonus' => $bonus,
+                    'malus' => $malus,
                     'salaire_total' => $salaires,
                 ];
     
@@ -564,4 +564,45 @@
         }
         return null;
     }
+
+    function paiement($date_debut, $date_fin, $idPers) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $date_debut = date('Y-m-d', strtotime($date_debut));
+                $date_fin = date('Y-m-d', strtotime($date_fin));
+    
+                $stmt = $pdo->prepare("SELECT date_cueillettes, poids, nomPers FROM histoCueillettes JOIN personnes on histoCueillettes.idPers = personnes.idPers WHERE histoCueillettes.idPers = ? AND date_cueillettes BETWEEN ? AND ?");
+                $stmt->execute([$idPers, $date_debut, $date_fin]);
+                $histoCueillettesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+                $payments = [];
+    
+                foreach ($histoCueillettesData as $row) {
+                    $date = $row['date_cueillettes'];
+                    $result = salaire($idPers, $date);
+    
+                    $payments[] = [
+                        'date' => $date,
+                        'nom' => $row['nomPers'],
+                        'bonus' => $result['bonus'],
+                        'malus' => $result['malus'],
+                        'salaire_total' => $result['salaire_total'],
+                    ];
+                }
+    
+                return $payments;
+    
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            } finally {
+                $pdo = null;
+            }
+        }
+    
+        return null;
+    }
+    
 ?>

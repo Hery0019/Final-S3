@@ -112,6 +112,16 @@ create table regenerer(
 );
 insert into regenerer(mois) values (12);
 
+create table paiement(
+    paiement int primary key auto_increment,
+    date_paiement date,
+    idPers int,
+    bonus decimal(10,2),
+    malus decimal(10,2),
+    montant decimal(10,2),
+    foreign key (idPers) references personnes(idPers)
+);
+
 insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) values
     (2,'2023-06-10', 1, 15.0),
     (3,'2023-06-12', 2, 12.5);
