@@ -361,10 +361,9 @@
 
             if ($pdo) {
                 try {
-                    $query = "SELECT count(*) from ?";
+                    $query = "SELECT count(*) from ".$table;
                     $stmt = $pdo->prepare($query);
-                    $stmt->execute([$table]);
-        
+      
                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
         
                     return $result;
@@ -456,11 +455,11 @@
         return null;
     }
     
-    // function salaire($idPers) {
-    //     $requete1 = "select montant_kg from salaire";
-    //     $requete2 = "select poids_min from poids_min where idPers ".$idPers;
-    //     $requete3 = ""
+    function salaire($idPers, $idParcelle) {
+        $requete1 = "select montant_kg from salaire";
+        $requete2 = "select poids_min from poids_min where idPers= ".$idPers;
+        $requete3 = "select poids from histoCueillettes where choix_parcelle= ".$idParcelle;
 
-    //     $karama = $requete1 * $requete2;
-    // }
+        $karama= $requete1 * $requete3;
+    }
 ?>
