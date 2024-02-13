@@ -112,3 +112,10 @@ CREATE or replace VIEW historique_depenses AS
 SELECT hd.idhisto, hd.idPers, hd.date_depense, d.nomDepense AS nom_depense, hd.montant
 FROM histoDepense hd
 INNER JOIN depense d ON hd.choix_depense = d.idDepense;
+
+
+CREATE or replace VIEW vue_histo_cueillettes AS
+SELECT hc.idhisto, hc.idPers, hc.date_cueillettes, v.nomVariete, p.surface, hc.poids
+FROM histoCueillettes hc
+JOIN parcelles p ON hc.choix_parcelle = p.idParcelle
+JOIN variete v ON p.variete = v.idVariete;
