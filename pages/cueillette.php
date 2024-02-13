@@ -1,5 +1,20 @@
 <?php 
     $historiqueCueilletes = select("select * from vue_histo_cueillettes where idPers = " . $idPers);
+    $listeVarietes = select ("select * from variete");
+    $listeParcelles = select("select * from parcelles");
+    $newHisto = null;
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Vérifier si les champs sont définis et non vides
+        if (isset($_POST['dateCueillette']) && isset($_POST['idParcelle']) && isset($_POST['poidsNet'])) {
+            $dateCueillette = $_POST['dateCueillette'];
+            $idParcelle = $_POST['idParcelle'];
+            $poidsNet = $_POST['poidsNet'];
+
+            $newHisto = insert_histo_cueillette($idPers, $dateCueillette, $idParcelle, $poidsNet);
+        }
+    }
+
 ?>
 
     <div class="results">
@@ -21,34 +36,29 @@
                     <td><?php echo $historiqueCueillete['poids'] ?></td>
                 </tr>
             <?php } ?>
-
         </table>
     </div>
     <div class="results">
     <center>
-        <div class="login">
-        <h3>Insertion de Cueillette</h3>
-        <p>Date de Cueillette :</p>
-        <p> <input type="date" name="dateCueillette" class="form-control"></p>
-        <p>Choix de Variete :</p>
-        <p>
-            <select name="" id="" class="form-control">
-                <option value="">--</option>
-                <option value="">Tisane</option>
-                <option value="">Canelle</option>
-            </select>
-        </p>
-        <p>Choix de Parcelle :</p>
-        <p>
-            <select name="" id="" class="form-control">
-                <option value="">--</option>
-                <option value="">Parcelle Nord</option>
-                <option value="">Parcelle Sud</option>
-            </select>
-        </p>
-        <p>Poid net :</p>
-        <p> <input type="number"  name="dateCueillette" class="form-control"></p>
-        <p> <input type="submit" value="Envoyer" class="form-control" id="submit"></p>
-        </div>
+        <form action="" method="post">
+            <div class="login">
+            <h3>Insertion de Cueillette</h3>
+            <p>Date de Cueillette :</p>
+            <p> <input type="date" name="dateCueillette" class="form-control"></p>
+            
+            <p>Choix de Parcelle :</p>
+            <p>
+                <select name="idParcelle" id="" class="form-control">
+                    <option value="unchecked">Choisir parcelle</option>
+                    <?php foreach ($listeParcelles as $listeParcelle) { ?>
+                        <option value="<?php echo $listeParcelle['idParcelle'] ?>"><?php echo $listeParcelle['idParcelle'] ?></option>
+                    <?php } ?>
+                </select>
+            </p>
+            <p>Poid net :</p>
+            <p> <input type="number"  name="poidsNet" class="form-control"></p>
+            <p> <input type="submit" value="Envoyer" class="form-control" id="submit"></p>
+            </div>
+        </form>
     </center>
     </div>

@@ -1,8 +1,8 @@
 <?php
     session_start();
+    include("fonction.php");
 
     $idPers = $_SESSION['idPers'];
-    include ("fonction.php");
     $page = "";
     if (isset($_GET['page'] )) {
         $page = $_GET['page'];
@@ -32,7 +32,7 @@
         <!-- <li role="presentation"><a href="#">Messages</a></li> -->
     </ul>
         
-        <?php include ("../pages/".$page.".php"); ?> <!--   body -->
+        <?php include("../pages/".$page.".php"); ?> <!--   body -->
 
 </body>
 </html>
