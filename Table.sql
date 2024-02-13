@@ -47,8 +47,8 @@ create table parcelles(
     foreign key (variete) references variete(idVariete)
 );
 insert into parcelles(surface, variete) values
-    (20, 8),
-    (20, 7);
+    (20, 1),
+    (20, 2);
 
 create table depense(
     idDepense int primary key auto_increment,
@@ -62,22 +62,20 @@ insert into depense(nomDepense) values
 create table histoCueillettes( 
     idhisto int primary key auto_increment,
     idPers int,
-    date_cueillettes date,
-    choix_cueilleur int,    
+    date_cueillettes date,  
     choix_parcelle int,
     poids decimal(10,2),
     foreign key (idPers) references personnes(idPers),
-    foreign key (choix_cueilleur) references variete(idVariete),
     foreign key (choix_parcelle) references parcelles(idParcelle),
     foreign key (idPers) references personnes(idPers)
 );
-insert into histoCueillettes(idPers, date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
-    (4, '2023-04-04', 6, 11, 10),
-    (4, '2023-04-14', 6, 11, 20),
-    (4, '2023-04-24', 6, 11, 10),
-    (4, '2023-04-29', 6, 11, 30),
-    (4, '2023-04-30', 6, 12, 10),
-    (4, '2023-04-23', 6, 12, 30);
+insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) values
+    (4, '2023-04-04', 1, 10),
+    (4, '2023-04-14', 1, 20),
+    (4, '2023-04-24', 1, 10),
+    (4, '2023-04-29', 1, 30),
+    (4, '2023-04-30', 2, 10),
+    (4, '2023-04-23', 2, 30);
 
 create table histoDepense(
     idhisto int primary key auto_increment,
@@ -96,9 +94,9 @@ create table resultat(
     cout_revient decimal(10,2)
 );
 
-insert into histoCueillettes(idPers, date_cueillettes, choix_cueilleur, choix_parcelle, poids) values
-    (2,'2023-06-10', 1, 1, 15.0),
-    (3,'2023-06-12', 2, 2, 12.5);
+insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) values
+    (2,'2023-06-10', 1, 15.0),
+    (3,'2023-06-12', 2, 12.5);
 
 -- Sample data for histoDepense table
 insert into histoDepense(idPers, date_depense, choix_depense, montant) values
