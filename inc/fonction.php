@@ -667,4 +667,21 @@
         }
         return null;
     }    
+
+    function benefice($date_debut, $date_fin, $idPers) {
+        try {
+            $date_debut = date('Y-m-d', strtotime($date_debut));
+            $date_fin = date('Y-m-d', strtotime($date_fin));
+    
+            $vente = montant_vente($date_debut, $date_fin, $idPers);
+            $depense = montant_depense($date_debut, $date_fin, $idPers);
+            $benefice = $vente - $depense;
+    
+            return $benefice;
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+            return null;
+        }
+    }
+    
 ?>

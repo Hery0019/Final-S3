@@ -125,15 +125,22 @@
     $date_fin = '2023-12-31';
     $idPers = 8;
 
-    $result = montant_depense($date_debut, $date_fin, $idPers);
-    echo "Total Expense: $" . $result;
+    $result = benefice($date_debut, $date_fin, $idPers);
+    if ($result === null) {
+        echo "Total Expense: $" . $result;
+    } else {
+        echo "Total Expense: $" . $result;
+    }
 
-    // $result = montant_vente($date_debut, $date_fin, $idPers);
-    // if ($result !== null) {
-    //     echo "Total amount: $result";
-    // } else {
-    //     echo "Function execution failed.";
-    // }
+    $resultd = montant_depense($date_debut, $date_fin, $idPers);
+    echo "Total Expense: $" . $resultd;
+
+    $resultv = montant_vente($date_debut, $date_fin, $idPers);
+    if ($result !== null) {
+        echo "Total amount: $resultv";
+    } else {
+        echo "Function execution failed.";
+    }
 
     // $result = paiement($date_debut, $date_fin, $idPers);
 
