@@ -1,5 +1,6 @@
 <?php
     include('fonction.php');
+    // Ceci est juste une page pour tester les fonctions
 
     // $username = 'Rebeca RKT';
     // $password = 'rebecaa';
