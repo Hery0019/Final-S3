@@ -132,15 +132,15 @@
         return null;
     }
 
-    function insert_histo_cueillette($date_cueillettes, $choix_parcelle, $poids)
+    function insert_histo_cueillette($idPers, $date_cueillettes, $choix_parcelle, $poids)
     {
         $pdo = dbconnect("mysql");
 
         if ($pdo) {
             try {
-                $query = "INSERT INTO histoCueillettes (date_cueillettes, choix_parcelle, poids) VALUES (?, ?, ?)";
+                $query = "INSERT INTO histoCueillettes (idPers, date_cueillettes, choix_parcelle, poids) VALUES (?, ?, ?, ?)";
                 $stmt = $pdo->prepare($query);
-                $stmt->execute([$date_cueillettes, $choix_parcelle, $poids]);
+                $stmt->execute([$idPers, $date_cueillettes, $choix_parcelle, $poids]);
 
                 $lastInsertId = $pdo->lastInsertId();
 
