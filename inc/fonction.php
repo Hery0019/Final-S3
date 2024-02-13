@@ -355,26 +355,50 @@
                 $pdo = null;
             }
         }
-
-        function compte_ligne($table) {
-            $pdo = dbconnect("mysql");
-
-            if ($pdo) {
-                try {
-                    $query = "SELECT count(*) from ?";
-                    $stmt = $pdo->prepare($query);
-                    $stmt->execute([$table]);
-        
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-                    return $result;
-                } catch (PDOException $e) {
-                    echo "Query failed: " . $e->getMessage();
-                    return null;
-                }
-            }
-            $pdo = null;
-        }
     }
+
+    function compte_ligne($table) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $query = "SELECT count(*) FROM " . $table; // Concaténation du nom de la table
+                $stmt = $pdo->prepare($query);
+                $stmt->execute();
+        
+                $result = $stmt->fetchColumn(); // Utilisation de fetchColumn pour obtenir le résultat directement
+        
+                return $result;
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }
+    
+
+    function getSurfaceParcelleById($id) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $query = "SELECT surface FROM parcelles WHERE idParcelle = ?";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$id]);
+    
+                $result = $stmt->fetchColumn(); // Utilisation de fetchColumn pour obtenir directement la valeur de la colonne surface
+    
+                return $result;
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }
+    
     
 ?>
