@@ -31,7 +31,7 @@ create table poids_min(
     foreign key (idPers) references personnes(idPers)
 );
 insert into poids_min(idPers, poids_min) values
-    (8, 100);
+    (3, 100);
 
 create table salaire(
     montant_kg decimal(10,2)

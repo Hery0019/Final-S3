@@ -46,3 +46,7 @@ body{
     margin: 30px;
     background-color: grey;
 }
+
+.img_composant{
+    width: 300px;
+}

@@ -11,8 +11,7 @@
         if (isset($_POST['dateCueillette']) && isset($_POST['idParcelle']) && isset($_POST['poidsNet'])) {
             $dateCueillette = $_POST['dateCueillette'];
             $idParcelle = $_POST['idParcelle'];
-            $poidsNet = $_POST['poidsNet'];
-            
+            $poidsNet = $_POST['poidsNet'];   
         }
         $validation = validation_ajax($poidsNet, $idParcelle, $dateCueillette, $idPers) ;
         if ($validation == 'invalide') {
