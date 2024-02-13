@@ -50,3 +50,8 @@ body{
 .img_composant{
     width: 300px;
 }
+
+footer{
+    background-color: darkgrey;
+    height: 200px;
+}

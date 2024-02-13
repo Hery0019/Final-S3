@@ -10,6 +10,20 @@
         echo 'error de page';
         exit;
     }
+
+    $current_page = isset($_GET['page']) ? $_GET['page'] : '';
+
+    // Fonction pour vérifier si un lien doit être actif
+    function is_link_active($page_name, $current_page) {
+        // Comparer le nom de la page actuelle avec le nom du lien
+        if ($current_page === $page_name) {
+            // Si les noms correspondent, retourner "active"
+            return "active";
+        } else {
+            // Sinon, retourner une chaîne vide
+            return "";
+        }
+    }
     
 ?>
 
@@ -23,17 +37,21 @@
         <link rel="stylesheet" href="../assets/css/acceuil.css">
     </head>
 <body>
+    <div>
+        <ul class="nav nav-tabs">
+        <li role="presentation" class="<?php echo is_link_active('acceuil_employe', $current_page); ?>"><a href="modele.php?page=acceuil_employe">Home</a></li>
+        <li role="presentation" class="<?php echo is_link_active('cueillette', $current_page); ?>"><a href="modele.php?page=cueillette">Cueillette</a></li>
+        <li role="presentation" class="<?php echo is_link_active('depense', $current_page); ?>"><a href="modele.php?page=depense">Dépense</a></li>
+        <li role="presentation" class="<?php echo is_link_active('salaire_employe', $current_page); ?>"><a href="modele.php?page=salaire_employe">Salaire</a></li>
+        <li role="presentation" class="<?php echo is_link_active('prevision', $current_page); ?>"><a href="modele.php?page=prevision">Prévision</a></li>
+        <li role="presentation"><a href="deconnexion.php">Déconnexion</a></li>
+            <!-- <li role="presentation"><a href="#">Messages</a></li> -->
+        </ul>
+            
+            <?php include("../pages/".$page.".php"); ?> <!--   body -->
 
-    <ul class="nav nav-tabs">
-        <li role="presentation" ><a href="modele.php?page=acceuil_employe">Home</a></li>
-        <li role="presentation" ><a href="modele.php?page=cueillette">Cueillette</a></li>
-        <li role="presentation" ><a href="modele.php?page=depense">Depense</a></li>
-        <li role="presentation"><a href="modele.php?page=salaire_employe">Salaire</a></li>
-        <li role="presentation" ><a href="deconnexion.php">Deconnexion</a></li>
-        <!-- <li role="presentation"><a href="#">Messages</a></li> -->
-    </ul>
-        
-        <?php include("../pages/".$page.".php"); ?> <!--   body -->
+    </div>
+    
 
 </body>
 </html>
