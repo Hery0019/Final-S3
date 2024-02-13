@@ -58,8 +58,8 @@ create table parcelles(
     foreign key (variete) references variete(idVariete)
 );
 insert into parcelles(surface, variete) values
-    (20, 1),
-    (20, 2);
+    (20, 9),
+    (20, 10);
 
 create table depense(
     idDepense int primary key auto_increment,
@@ -88,7 +88,8 @@ insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) va
     (4, '2023-04-30', 2, 10),
     (4, '2023-04-23', 2, 30);
 insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) values
-    (8, '2006-06-07', 12, 150);
+    (8, '2006-06-07', 13, 150),
+    (8, '2006-06-07', 14, 150);
 
 create table histoDepense(
     idhisto int primary key auto_increment,
@@ -99,6 +100,16 @@ create table histoDepense(
     foreign key (idPers) references personnes(idPers),
     foreign key (choix_depense) references depense(idDepense)
 );
+INSERT INTO histoDepense (idPers, date_depense, choix_depense, montant) VALUES
+(8, '2023-01-15', 1, 50.00),
+(8, '2023-02-20', 2, 75.50),
+(8, '2023-03-10', 3, 30.00),
+(8, '2023-04-05', 1, 45.75),
+(8, '2023-05-12', 2, 60.25),
+(8, '2023-06-18', 3, 25.50),
+(1, '2023-07-22', 1, 55.00),
+(2, '2023-08-30', 2, 70.75),
+(3, '2023-09-08', 3, 35.25);
 
 create table resultat(
     idresultat int primary key auto_increment,

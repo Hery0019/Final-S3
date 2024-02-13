@@ -118,25 +118,36 @@
     // $moisArray = [1, 2, 3];
     // insert_generer($moisArray); 
 
-    // poid_min(1, 70.5);
+    // poid_min(7, 1000000.5);
 
-    $date_debut = '01-06-2006';
-    $date_fin = '20-06-2006';
+
+    $date_debut = '2000-01-01';
+    $date_fin = '2023-12-31';
     $idPers = 8;
 
-    $result = paiement($date_debut, $date_fin, $idPers);
+    $result = montant_depense($date_debut, $date_fin, $idPers);
+    echo "Total Expense: $" . $result;
 
-    if ($result !== null) {
-        foreach ($result as $payment) {
-            echo "Date: " . $payment['date'] . "\n";
-            echo "Nom: " . $payment['nom'] . "\n";
-            echo "Bonus: " . $payment['bonus'] . "\n";
-            echo "Malus: " . $payment['malus'] . "\n";
-            echo "Salaire Total: " . $payment['salaire_total'] . "\n\n";
-        }
-    } else {
-        echo "An error occurred while executing the paiement function.\n";
-    }
+    // $result = montant_vente($date_debut, $date_fin, $idPers);
+    // if ($result !== null) {
+    //     echo "Total amount: $result";
+    // } else {
+    //     echo "Function execution failed.";
+    // }
+
+    // $result = paiement($date_debut, $date_fin, $idPers);
+
+    // if ($result !== null) {
+    //     foreach ($result as $payment) {
+    //         echo "Date: " . $payment['date'] . "\n";
+    //         echo "Nom: " . $payment['nom'] . "\n";
+    //         echo "Bonus: " . $payment['bonus'] . "\n";
+    //         echo "Malus: " . $payment['malus'] . "\n";
+    //         echo "Salaire Total: " . $payment['salaire_total'] . "\n\n";
+    //     }
+    // } else {
+    //     echo "An error occurred while executing the paiement function.\n";
+    // }
 
     // $date_cuellie = '2023-04-31';
     // $idPers = 8; 
