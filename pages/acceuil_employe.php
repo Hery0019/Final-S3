@@ -22,7 +22,7 @@
                 <p><input type="submit" value="Consulter" class="form-control" id="submit"></p>
             </form>
         </div>
-        <div class="composants">
+        <div class="composants" width="700px">
             <h4>Poids total des Recoltes : </h4>
             <?php if ($date_debut != null && $date_fin != null) {?>
                 <table class="table">
@@ -49,11 +49,15 @@
         </div>
         <div class="composants">
             <h4>Poids Restant des Patcelles : </h4>
+            <table>
             <?php if ($date_debut != null && $date_fin != null) {?>
                 <?php for ($i=0 ; $i < compte_ligne("parcelles") ; $i++) {?>
-                    <p>Parcelle numero <?php echo $i+1 ?></p>
-                    <b><h2 class="info"><?php echo reste_recoltes($i+1, $date_debut, $date_fin,$idPers) ?>Kg</h2></b>
+                        <tr>
+                            <td><p>Parcelle numero <?php echo $i+1 ?> : </p></td>
+                            <td><h2 class="info"><?php echo reste_recoltes($i+1, $date_debut, $date_fin,$idPers) ?>Kg</h2></td>
+                        </tr>
                 <?php }?>
             <?php }?>
+            </table>
         </div>
     </div>
