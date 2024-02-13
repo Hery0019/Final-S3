@@ -1,5 +1,17 @@
 <?php 
-    $listeCeuilleures = select("select * from personnes where idCateg = 2");
+    $listeCeuilleures = select("select * from personnes where idCateg = 2"); // 2 veut dire cueilleure
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Vérifier si les champs sont définis et non vides
+        if (isset($_POST['nom']) && isset($_POST['genre']) && isset($_POST['date_naissance']) && isset($_POST['password'])) {
+            $nom = $_POST['nom'];
+            $genre = $_POST['genre'];
+            $montant = $_POST['date_naissance'];
+            $pass = $_POST['password'];
+
+            $newCueilleur = insert_personnes($nom, $genre, $montant, $pass);
+        }
+    }
 ?>
 
     <div class="results">
@@ -23,11 +35,11 @@
     <div class="results">
         <center>
             <!-- nom , genre m/f , date naissance , mdp -->
-            <form action="" method="get">
+            <form action="" method="POST">
                 <div class="login">
                 <h3>Insertion de Cueilleur</h3> 
                 <p>Nom :</p>
-                <p> <input type="text"  name="value" class="form-control"> </p>
+                <p> <input type="text"  name="nom" class="form-control"> </p>
                 <p>Genre :</p>
                 <p>
                     <select name="genre" id="" class="form-control">

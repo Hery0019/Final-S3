@@ -397,7 +397,7 @@
                     $stmtInsert->execute();
                 }
     
-                echo "Records inserted successfully.";
+                echo "Month updated successfully.";
     
             } catch (PDOException $e) {
                 echo "Query failed: " . $e->getMessage();
