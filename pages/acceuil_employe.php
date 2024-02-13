@@ -61,4 +61,14 @@
             <?php }?>
             </table>
         </div>
+        
+        <div class="composants">
+            <h4>Montant des ventes</h4>
+            <p class="info"> <?php echo montant_vente($date_debut, $date_fin, $idPers) ?> Ar </p>
+        </div>
+
+        <div class="composants">
+            <h4>Montant des depenses</h4>
+            <p class="info"><?php echo montant_depense($date_debut, $date_fin, $idPers) ?> Ar</p>
+        </div>
     </div>

@@ -37,5 +37,5 @@
             </center>
         </div>
 </body>
-<footer>2512 - 2502 - 2720</footer>
+
 </html>

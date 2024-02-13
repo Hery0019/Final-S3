@@ -3,6 +3,7 @@
     include("fonction.php");
 
     $idPers = $_SESSION['idPers'];
+    $infos = select("select * from personnes where idPers = ".$idPers);
     $page = "";
     if (isset($_GET['page'] )) {
         $page = $_GET['page'];
@@ -39,19 +40,25 @@
 <body>
     <div>
         <ul class="nav nav-tabs">
-        <li role="presentation" class="<?php echo is_link_active('acceuil_employe', $current_page); ?>"><a href="modele.php?page=acceuil_employe">Home</a></li>
+        <li role="presentation" class="<?php echo is_link_active('acceuil_employe', $current_page); ?>"><a href="modele.php?page=acceuil_employe">Resultat</a></li>
         <li role="presentation" class="<?php echo is_link_active('cueillette', $current_page); ?>"><a href="modele.php?page=cueillette">Cueillette</a></li>
         <li role="presentation" class="<?php echo is_link_active('depense', $current_page); ?>"><a href="modele.php?page=depense">Dépense</a></li>
         <li role="presentation" class="<?php echo is_link_active('salaire_employe', $current_page); ?>"><a href="modele.php?page=salaire_employe">Salaire</a></li>
         <li role="presentation" class="<?php echo is_link_active('prevision', $current_page); ?>"><a href="modele.php?page=prevision">Prévision</a></li>
         <li role="presentation"><a href="deconnexion.php">Déconnexion</a></li>
+        
             <!-- <li role="presentation"><a href="#">Messages</a></li> -->
         </ul>
+        <?php foreach ($infos as $info) {?>
+            <p>L'Utilisateur : <i>@<?php echo $info['nomPers'] ?></i></p>
+                <p>Type : <i>CUEILLEUR</i></p>
+            <hr>
+        <?php } ?>
             
             <?php include("../pages/".$page.".php"); ?> <!--   body -->
 
     </div>
-    
 
+    <?php include("footer.php") ?>
 </body>
 </html>
