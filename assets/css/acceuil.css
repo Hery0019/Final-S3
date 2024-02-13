@@ -36,6 +36,22 @@ body{
 }
 
 .info{
-    font-size: 50px;
+    font-size: 20px;
     color: #17961c;
+}
+
+
+.liiiiiiste{
+    padding: 200px;
+    margin: 30px;
+    background-color: grey;
+}
+
+.img_composant{
+    width: 300px;
+}
+
+footer{
+    background-color: darkgrey;
+    height: 200px;
 }
