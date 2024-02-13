@@ -39,7 +39,7 @@
 <body>
     <div>
         <ul class="nav nav-tabs">
-        <li role="presentation" class="<?php echo is_link_active('acceuil_employe', $current_page); ?>"><a href="modele.php?page=acceuil_employe">Home</a></li>
+        <li role="presentation" class="<?php echo is_link_active('acceuil_employe', $current_page); ?>"><a href="modele.php?page=acceuil_employe">Resultat</a></li>
         <li role="presentation" class="<?php echo is_link_active('cueillette', $current_page); ?>"><a href="modele.php?page=cueillette">Cueillette</a></li>
         <li role="presentation" class="<?php echo is_link_active('depense', $current_page); ?>"><a href="modele.php?page=depense">Dépense</a></li>
         <li role="presentation" class="<?php echo is_link_active('salaire_employe', $current_page); ?>"><a href="modele.php?page=salaire_employe">Salaire</a></li>
@@ -51,7 +51,7 @@
             <?php include("../pages/".$page.".php"); ?> <!--   body -->
 
     </div>
-    
+
 
 </body>
 </html>
