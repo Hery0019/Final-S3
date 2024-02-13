@@ -601,8 +601,70 @@
                 $pdo = null;
             }
         }
-    
         return null;
     }
     
+    function montant_vente($date_debut, $date_fin, $idPers) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $date_debut = date('Y-m-d', strtotime($date_debut));
+                $date_fin = date('Y-m-d', strtotime($date_fin));
+
+                $totalAmount = 0;
+                $stmt1 = $pdo->query("SELECT idParcelle FROM parcelles");
+                $parcelles = $stmt1->fetchAll(PDO::FETCH_COLUMN);
+    
+                foreach ($parcelles as $idParcelle) {
+                    $stmt2 = $pdo->prepare("SELECT SUM(histoCueillettes.poids) AS total_poids, variete.prix 
+                                            FROM histoCueillettes
+                                            JOIN parcelles ON histoCueillettes.choix_parcelle = parcelles.idParcelle
+                                            JOIN variete ON parcelles.variete = variete.idVariete
+                                            WHERE date_cueillettes >= ? AND date_cueillettes <= ? AND parcelles.idParcelle = ?
+                                            AND histoCueillettes.idPers = ?");
+                    $stmt2->execute([$date_debut, $date_fin, $idParcelle, $idPers]);
+                    $result = $stmt2->fetch(PDO::FETCH_ASSOC);
+    
+                    $total_poids = $result['total_poids'] ?: 0;
+                    $prix_unitaire = $result['prix'] ?: 0;
+    
+                    $benefice = $prix_unitaire * $total_poids;
+                    $totalAmount += $benefice;
+                }
+    
+                return $totalAmount;
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            } finally {
+                $pdo = null;
+            }
+        }
+        return null;
+    }
+    
+    function montant_depense($date_debut, $date_fin, $idPers) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $date_debut = date('Y-m-d', strtotime($date_debut));
+                $date_fin = date('Y-m-d', strtotime($date_fin));
+
+                $stmt = $pdo->prepare("SELECT SUM(montant) AS total_depense FROM histoDepense WHERE idPers = ? AND date_depense BETWEEN ? AND ? ");
+                $stmt->execute([$idPers, $date_debut, $date_fin]);
+                
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                return $result['total_depense'] ?: 0;
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            } finally {
+                $pdo = null;
+            }
+        }
+        return null;
+    }    
 ?>
