@@ -30,8 +30,16 @@
         <li role="presentation" class="<?php echo ($page == 'configuration') ? 'active' : ''; ?>"><a href="modele_admin.php?page=configuration">Configuation</a></li>
         <li role="presentation"><a href="deconnexion.php">Deconnexion</a></li>
     </ul>
-        
+
+    <p>L'Utilisateur : <i>@ HERY</i></p>
+        <p>Type : <i>ADMIN</i></p>
+    <hr>
+    <div class="vatana">
         <?php include ("../pages/".$page.".php"); ?> <!--   body -->
+    </div>
+            
+
+    <?php include("footer.php") ?>
 
 </body>
 </html>
