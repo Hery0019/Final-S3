@@ -1,0 +1,3 @@
+<?php
+    echo "salaire employe";
+?>
