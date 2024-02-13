@@ -106,6 +106,8 @@
 
     // $newMontant = 12.5;
     // $result = updateSalaire($newMontant);
+    // $mois = 8;
+    // $result = insert_generer($mois);
 
     // if ($result !== null) {
     //     echo "Update successful. Number of affected rows: " . $result;
@@ -113,9 +115,14 @@
     //     echo "Update failed.";
     // }
 
+    // $moisArray = [1, 2, 3];
+    // insert_generer($moisArray); 
+
+    // poid_min(1, 70.5);
+
     // $date_debut = '01-04-2023';
     // $date_fin = '31-04-2023';
-    // $date_cuellie = '2023-04-05';
+    // $date_cuellie = '2023-04-31';
     // $idPers = 4; 
     // $idParcelle = 11;
 
@@ -126,13 +133,13 @@
     //     echo "Failed to calculate remaining harvest.";
     // }
 
-    $poids_cuellie = 91;
-    $idParcelle = 11;
-    $date_cuellie = '2023-04-05';
-    $idPers = 4;
+    // $poids_cuellie = 91;
+    // $idParcelle = 11;
+    // $date_cuellie = '2023-04-05';
+    // $idPers = 4;
 
-    $result = validation_ajax($poids_cuellie, $idParcelle, $date_cuellie, $idPers);
-    echo "Result: $result";
+    // $result = validation_ajax($poids_cuellie, $idParcelle, $date_cuellie, $idPers);
+    // echo "Result: $result";
 
     // $results = recoltes_parcelles($date_debut, $date_fin);
 
