@@ -132,15 +132,22 @@
         echo "Total Expense: $" . $result;
     }
 
-    $resultd = montant_depense($date_debut, $date_fin, $idPers);
-    echo "Total Expense: $" . $resultd;
-
-    $resultv = montant_vente($date_debut, $date_fin, $idPers);
+    $resultc = cout($date_debut, $date_fin, $idPers);
     if ($result !== null) {
-        echo "Total amount: $resultv";
+        echo "Total Cost: $" . $resultc;
     } else {
-        echo "Function execution failed.";
+        echo "Error occurred while calculating the cost.";
     }
+
+    // $resultd = montant_depense($date_debut, $date_fin, $idPers);
+    // echo "Total Expense: $" . $resultd;
+
+    // $resultv = montant_vente($date_debut, $date_fin, $idPers);
+    // if ($result !== null) {
+    //     echo "Total amount: $resultv";
+    // } else {
+    //     echo "Function execution failed.";
+    // }
 
     // $result = paiement($date_debut, $date_fin, $idPers);
 

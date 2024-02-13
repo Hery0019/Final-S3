@@ -683,5 +683,30 @@
             return null;
         }
     }
+
+    function cout($date_debut, $date_fin, $idPers) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $benefice = benefice($date_debut, $date_fin, $idPers);
+    
+                $stmt = $pdo->prepare("SELECT SUM(poids) AS total_poids FROM histoCueillettes WHERE idPers = ? AND date_cueillettes BETWEEN ? AND ?");
+                $stmt->execute([$idPers, $date_debut, $date_fin]);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                $total_poids = $result['total_poids'] ?: 0;
+                $cost = $benefice / $total_poids;
+    
+                return $cost;
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            } finally {
+                $pdo = null;
+            }
+        }
+        return null;
+    }
     
 ?>
