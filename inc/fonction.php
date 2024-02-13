@@ -220,7 +220,7 @@
         return null;
     }
 
-    function total_recolte($date_debut, $date_fin, $idPers)
+    function total_recolte($date_debut, $date_fin, $idPers, $idParcelle)
     {
         $pdo = dbconnect("mysql");
     
@@ -229,9 +229,9 @@
                 $date_debut = date('Y-m-d', strtotime($date_debut));
                 $date_fin = date('Y-m-d', strtotime($date_fin));
 
-                $query = "SELECT SUM(poids) as total_poids FROM histoCueillettes WHERE idPers = ? AND date_cueillettes >= ? AND date_cueillettes <= ?";
+                $query = "SELECT SUM(poids) as total_poids FROM histoCueillettes WHERE idPers = ? AND date_cueillettes >= ? AND date_cueillettes <= ? AND choix_parcelle = ?";
                 $stmt = $pdo->prepare($query);
-                $stmt->execute([$idPers, $date_debut, $date_fin]);
+                $stmt->execute([$idPers, $date_debut, $date_fin, $idParcelle]);
     
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -243,5 +243,118 @@
         }
         $pdo = null;
         return null;
-    }    
+    }  
+
+    function reste_recoltes($idParcelle, $date_debut, $date_fin, $idPers) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $date_debut = date('Y-m-d', strtotime($date_debut));
+                $date_fin = date('Y-m-d', strtotime($date_fin));
+    
+                $stmtParcelle = $pdo->prepare("SELECT surface FROM parcelles WHERE idParcelle = ?");
+                $stmtPied = $pdo->prepare("SELECT occupation FROM parcelles p JOIN variete v ON p.variete = v.idVariete WHERE idParcelle = ?");
+                $stmtRendementPied = $pdo->prepare("SELECT rendement FROM parcelles p JOIN variete v ON p.variete = v.idVariete WHERE idParcelle = ?");
+                
+                $stmtParcelle->execute([$idParcelle]);
+                $stmtPied->execute([$idParcelle]);
+                $stmtRendementPied->execute([$idParcelle]);
+    
+                $parcelle = $stmtParcelle->fetchColumn();
+                $pied = $stmtPied->fetchColumn();
+                $rendement_pied = $stmtRendementPied->fetchColumn();
+    
+                if ($parcelle !== false && $pied !== false && $rendement_pied !== false) {
+                    $nbr_pied = $parcelle / $pied;
+                    $rendement = $rendement_pied * $nbr_pied;
+    
+                    $stmtTotalRecolte = $pdo->prepare("SELECT SUM(poids) as total_poids FROM histoCueillettes WHERE idPers = ? AND date_cueillettes >= ? AND date_cueillettes <= ? AND choix_parcelle = ?");
+                    $stmtTotalRecolte->execute([$idPers, $date_debut, $date_fin, $idParcelle]);
+    
+                    $resultTotalRecolte = $stmtTotalRecolte->fetch(PDO::FETCH_ASSOC);
+    
+                    $total_recolte = $resultTotalRecolte['total_poids'] ?: 0;
+    
+                    $restant = $rendement - $total_recolte;
+    
+                    return $restant;
+                } else {
+                    return null;
+                }
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        return null;
+    }
+
+    function reste($idParcelle, $date_cuellie, $idPers) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $date_cuellie = date('Y-m-d', strtotime($date_cuellie));
+    
+                $stmtParcelle = $pdo->prepare("SELECT surface FROM parcelles WHERE idParcelle = ?");
+                $stmtPied = $pdo->prepare("SELECT occupation FROM parcelles p JOIN variete v ON p.variete = v.idVariete WHERE idParcelle = ?");
+                $stmtRendementPied = $pdo->prepare("SELECT rendement FROM parcelles p JOIN variete v ON p.variete = v.idVariete WHERE idParcelle = ?");
+                
+                $stmtParcelle->execute([$idParcelle]);
+                $stmtPied->execute([$idParcelle]);
+                $stmtRendementPied->execute([$idParcelle]);
+    
+                $parcelle = $stmtParcelle->fetchColumn();
+                $pied = $stmtPied->fetchColumn();
+                $rendement_pied = $stmtRendementPied->fetchColumn();
+    
+                if ($parcelle !== false && $pied !== false && $rendement_pied !== false) {
+                    $nbr_pied = $parcelle / $pied;
+                    $rendement = $rendement_pied * $nbr_pied;
+    
+                    $stmtTotalRecolte = $pdo->prepare("SELECT SUM(poids) as total_poids FROM histoCueillettes WHERE idPers = ? AND date_cueillettes <= ? AND choix_parcelle = ?");
+                    $stmtTotalRecolte->execute([$idPers, $date_cuellie, $idParcelle]);
+    
+                    $resultTotalRecolte = $stmtTotalRecolte->fetch(PDO::FETCH_ASSOC);
+    
+                    $total_recolte = $resultTotalRecolte['total_poids'] ?: 0;
+    
+                    $restant = $rendement - $total_recolte;
+    
+                    return $restant;
+                } else {
+                    return null;
+                }
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        return null;
+    }
+
+    function validation_ajax($poids_cuellie, $idParcelle, $date_cuellie, $idPers) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $date_cuellie = date('Y-m-d', strtotime($date_cuellie));
+                $reste = reste($idParcelle, $date_cuellie, $idPers);
+                $validation = $reste - $poids_cuellie;
+    
+                if ($validation >= 0) {
+                    return "valider";
+                } else {
+                    return "invalide";
+                }
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            } finally {
+                $pdo = null;
+            }
+        }
+    }
+    
 ?>

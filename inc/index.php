@@ -113,15 +113,41 @@
     //     echo "Update failed.";
     // }
 
-    $date_debut = '01-04-2023';
-    $date_fin = '20-04-2023';
-    $idPers = 4; 
+    // $date_debut = '01-04-2023';
+    // $date_fin = '31-04-2023';
+    // $date_cuellie = '2023-04-05';
+    // $idPers = 4; 
+    // $idParcelle = 11;
 
-    $result = total_recolte($date_debut, $date_fin, $idPers);
+    // $result = reste($idParcelle, $date_cuellie, $idPers) ;
+    // if ($result !== null) {
+    //     echo "Remaining harvest for Parcelle ID $idParcelle: " . $result;
+    // } else {
+    //     echo "Failed to calculate remaining harvest.";
+    // }
 
-    if ($result !== null) {
-        echo "Total recolte between $date_debut and $date_fin for idPers $idPers: $result kg";
-    } else {
-        echo "Query failed.";
-    }
+    $poids_cuellie = 91;
+    $idParcelle = 11;
+    $date_cuellie = '2023-04-05';
+    $idPers = 4;
+
+    $result = validation_ajax($poids_cuellie, $idParcelle, $date_cuellie, $idPers);
+    echo "Result: $result";
+
+    // $results = recoltes_parcelles($date_debut, $date_fin);
+
+    // if ($results !== null) {
+    //     foreach ($results as $row) {
+    //         echo "Parcelle ID: " . $row['idParcelle'] . ", Total Weight: " . $row['total_poids_cueillettes'] . " kg<br>";
+    //     }
+    // } else {
+    //     echo "Query failed.";
+    // }
+
+    // $result = total_recolte($date_debut, $date_fin, $idPers, $idParcelle);
+    // if ($result !== null) {
+    //     echo "Total recolte between $date_debut and $date_fin for idPers $idPers: $result kg";
+    // } else {
+    //     echo "Query failed.";
+    // }
 ?>
