@@ -17,11 +17,21 @@
             <h4>Poids total des Recoltes : </h4>
             <table class="table">
                 <tr>
-                    <th>idTay</th>
-                    <th>Tay Kely</th>
-                    <th>Tay be</th>
+                    <th>Date de debut</th>
+                    <th>Date de fin</th>
+                    <th>Cueilleur</th>
+                    <th>Parcelle</th>
+                    <th>Poids total</th>
                 </tr>
-                
+                <tr>
+                <?php for ($i=0 ; $i < compte_ligne("parcelles") ; $i++) {?>
+                    <td><?php echo $date_debut ?></td>
+                    <td><?php echo $date_fin ?></td>
+                    <td><?php echo $idPers ?></td>
+                    <td><?php   ?></td>
+                    <td><?php  ?></td>
+                <?php }?>
+                </tr>
             </table>
         </div>
         <div class="composants">
