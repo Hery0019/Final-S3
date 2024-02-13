@@ -253,7 +253,7 @@
                 $date_debut = date('Y-m-d', strtotime($date_debut));
                 $date_fin = date('Y-m-d', strtotime($date_fin));
     
-                $stmtParcelle = $pdo->prepare("SELECT surface FROM parcelles WHERE idParcelle = ?");
+                $stmtParcelle = $pdo->prepare("SELECT surface*10000 FROM parcelles WHERE idParcelle = ?");
                 $stmtPied = $pdo->prepare("SELECT occupation FROM parcelles p JOIN variete v ON p.variete = v.idVariete WHERE idParcelle = ?");
                 $stmtRendementPied = $pdo->prepare("SELECT rendement FROM parcelles p JOIN variete v ON p.variete = v.idVariete WHERE idParcelle = ?");
                 
@@ -297,7 +297,7 @@
             try {
                 $date_cuellie = date('Y-m-d', strtotime($date_cuellie));
     
-                $stmtParcelle = $pdo->prepare("SELECT surface FROM parcelles WHERE idParcelle = ?");
+                $stmtParcelle = $pdo->prepare("SELECT surface*10000 FROM parcelles WHERE idParcelle = ?");
                 $stmtPied = $pdo->prepare("SELECT occupation FROM parcelles p JOIN variete v ON p.variete = v.idVariete WHERE idParcelle = ?");
                 $stmtRendementPied = $pdo->prepare("SELECT rendement FROM parcelles p JOIN variete v ON p.variete = v.idVariete WHERE idParcelle = ?");
                 
@@ -377,13 +377,44 @@
         $pdo = null;
         return null;
     }
+
+    function insert_generer($mois) {
+        $pdo = dbconnect("mysql");
+        if ($pdo) {
+            try {
+                $deleteQuery = "DELETE FROM regenerer";
+                $stmtDelete = $pdo->prepare($deleteQuery);
+                $stmtDelete->execute();
     
+<<<<<<< HEAD
 
     function getSurfaceParcelleById($id) {
+=======
+                $insertQuery = "INSERT INTO regenerer (mois) VALUES (:mois)";
+                $stmtInsert = $pdo->prepare($insertQuery);
+    
+                foreach ($mois as $resultat) {
+                    $stmtInsert->bindParam(':mois', $resultat);
+                    $stmtInsert->execute();
+                }
+    
+                echo "Records inserted successfully.";
+    
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+            } finally {
+                $pdo = null;
+            }
+        }
+    }
+
+    function poid_min($idPers, $pointMin) {
+>>>>>>> fc3baba32c8f2cebdeb1191f49f7967ea3c7cfbe
         $pdo = dbconnect("mysql");
     
         if ($pdo) {
             try {
+<<<<<<< HEAD
                 $query = "SELECT surface FROM parcelles WHERE idParcelle = ?";
                 $stmt = $pdo->prepare($query);
                 $stmt->execute([$id]);
@@ -401,4 +432,32 @@
     }
     
     
+=======
+                $checkQuery = "SELECT idPers FROM poids_min WHERE idPers = ?";
+                $stmtCheck = $pdo->prepare($checkQuery);
+                $stmtCheck->execute([$idPers]);
+                $existingIdPers = $stmtCheck->fetchColumn();
+    
+                if ($existingIdPers) {
+                    // If idPers exists, update the existing record
+                    $updateQuery = "UPDATE poids_min SET poids_min = ? WHERE idPers = ?";
+                    $stmtUpdate = $pdo->prepare($updateQuery);
+                    $stmtUpdate->execute([$pointMin, $idPers]);
+                    echo "Record updated successfully.";
+                } else {
+                    // If idPers doesn't exist, insert a new record
+                    $insertQuery = "INSERT INTO poids_min (idPers, poids_min) VALUES (?, ?)";
+                    $stmtInsert = $pdo->prepare($insertQuery);
+                    $stmtInsert->execute([$idPers, $pointMin]);
+                    echo "Record inserted successfully.";
+                }
+    
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+            } finally {
+                $pdo = null;
+            }
+        }
+    }    
+>>>>>>> fc3baba32c8f2cebdeb1191f49f7967ea3c7cfbe
 ?>

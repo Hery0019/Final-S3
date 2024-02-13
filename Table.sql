@@ -25,6 +25,12 @@ insert into personnes(nomPers, genre, date_naissance, idCateg, mdp) values
     ('Alice Smith', 'F', '1995-08-20', 2, 'alice'),
     ('Hery', 'H', '2014-03-10', '1', 'hery'); --admin
 
+create table poids_min(
+    idPers int, 
+    poids_min decimal(10,2),
+    foreign key (idPers) references personnes(idPers)
+);
+
 create table salaire(
     montant_kg decimal(10,2)
 );
@@ -94,6 +100,11 @@ create table resultat(
     poids_restant_parcelles decimal(10,2),
     cout_revient decimal(10,2)
 );
+
+create table regenerer(
+    mois int
+);
+insert into regenerer(mois) values (12);
 
 insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) values
     (2,'2023-06-10', 1, 15.0),
