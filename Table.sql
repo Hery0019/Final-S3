@@ -30,12 +30,14 @@ create table poids_min(
     poids_min decimal(10,2),
     foreign key (idPers) references personnes(idPers)
 );
+insert into poids_min(idPers, poids_min) values
+    (8, 100);
 
 create table salaire(
     montant_kg decimal(10,2)
 );
 insert into salaire(montant_kg) values
-    (500000.00);
+    (100.00);
 
 create table variete(
     idVariete int primary key auto_increment,
@@ -43,9 +45,11 @@ create table variete(
     occupation decimal(10,2),
     rendement decimal(10,2)
 );
-insert into variete(nomVariete, occupation, rendement) values
-    ('Green Tea', 1, 5.0),
-    ('Black Tea', 1, 5.0);
+ALTER TABLE variete
+ADD COLUMN prix decimal(10,2);
+insert into variete(nomVariete, occupation, rendement, prix) values
+    ('Green Tea', 1, 5.0, 150),
+    ('Black Tea', 1, 5.0, 160);
 
 create table parcelles(
     idParcelle int primary key auto_increment,
@@ -83,6 +87,8 @@ insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) va
     (4, '2023-04-29', 1, 30),
     (4, '2023-04-30', 2, 10),
     (4, '2023-04-23', 2, 30);
+insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) values
+    (8, '2006-06-07', 12, 150);
 
 create table histoDepense(
     idhisto int primary key auto_increment,
