@@ -28,6 +28,7 @@
         <li role="presentation" ><a href="modele.php?page=acceuil_employe">Home</a></li>
         <li role="presentation" ><a href="modele.php?page=cueillette">Cueillette</a></li>
         <li role="presentation" ><a href="modele.php?page=depense">Depense</a></li>
+        <li role="presentation"><a href="modele.php?page=salaire_employe">Salaire</a></li>
         <li role="presentation" ><a href="deconnexion.php">Deconnexion</a></li>
         <!-- <li role="presentation"><a href="#">Messages</a></li> -->
     </ul>

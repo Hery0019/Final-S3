@@ -31,7 +31,7 @@ create table poids_min(
     foreign key (idPers) references personnes(idPers)
 );
 insert into poids_min(idPers, poids_min) values
-    (8, 100);
+    (3, 100);
 
 create table salaire(
     montant_kg decimal(10,2)
@@ -112,6 +112,16 @@ create table regenerer(
 );
 insert into regenerer(mois) values (12);
 
+create table paiement(
+    paiement int primary key auto_increment,
+    date_paiement date,
+    idPers int,
+    bonus decimal(10,2),
+    malus decimal(10,2),
+    montant decimal(10,2),
+    foreign key (idPers) references personnes(idPers)
+);
+
 insert into histoCueillettes(idPers, date_cueillettes, choix_parcelle, poids) values
     (2,'2023-06-10', 1, 15.0),
     (3,'2023-06-12', 2, 12.5);
@@ -141,4 +151,4 @@ JOIN variete v ON p.variete = v.idVariete;
 CREATE or replace VIEW vue_parcelle_variete AS
 SELECT p.idParcelle, p.surface, v.nomVariete
 FROM parcelles p
-JOIN variete v ON p.variete = v.idVariete;
+JOIN variete v ON p.variete = v.idVariete;
