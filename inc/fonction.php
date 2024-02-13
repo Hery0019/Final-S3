@@ -355,25 +355,30 @@
                 $pdo = null;
             }
         }
+    }
 
-        function compte_ligne($table) {
-            $pdo = dbconnect("mysql");
-
-            if ($pdo) {
-                try {
-                    $query = "SELECT count(*) from ".$table;
-                    $stmt = $pdo->prepare($query);
-      
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-                    return $result;
-                } catch (PDOException $e) {
-                    echo "Query failed: " . $e->getMessage();
-                    return null;
-                }
+    function compteligne($table) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $query = "SELECT count(*) as count FROM " . $table; // Renommer le résultat avec un alias "count"
+                $stmt = $pdo->prepare($query);
+                $stmt->execute();
+    
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                // Récupérer le résultat à partir de l'alias "count"
+                $count = $result['count'];
+    
+                return $count;
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
             }
-            $pdo = null;
         }
+        $pdo = null;
+        return null;
     }
 
     function insert_generer($mois) {
@@ -454,12 +459,49 @@
         $pdo = null;
         return null;
     }
-    
-    function salaire($idPers, $idParcelle) {
-        $requete1 = "select montant_kg from salaire";
-        $requete2 = "select poids_min from poids_min where idPers= ".$idPers;
-        $requete3 = "select poids from histoCueillettes where choix_parcelle= ".$idParcelle;
 
-        $karama= $requete1 * $requete3;
+    function salaire($idPers, $idParcelle, $date_debut, $date_fin) {
+        $pdo = dbconnect("mysql");
+    
+        if ($pdo) {
+            try {
+                $stmt1 = $pdo->query("SELECT montant_kg FROM salaire");
+                $montant_kg = $stmt1->fetchColumn();
+    
+                $stmt2 = $pdo->prepare("SELECT poids_min FROM poids_min WHERE idPers = ?");
+                $stmt2->execute([$idPers]);
+                $poids_min = $stmt2->fetchColumn();
+    
+                $stmt3 = $pdo->prepare("SELECT SUM(poids) AS total_poids FROM histoCueillettes WHERE choix_parcelle = ? AND date_cueillettes <= ? AND date_cueillettes >= ?");
+                $stmt3->execute([$idParcelle, $date_fin, $date_debut]);
+                $total_poids = $stmt3->fetchColumn();
+    
+                $karama = $montant_kg * $total_poids;
+                $salaires = 0;
+    
+                if ($poids_min < $total_poids) {
+                    $restant = $total_poids - $poids_min;
+                    $pourcentage = ($restant * 100) / $poids_min;
+                    $salaires = $karama + (($karama * $pourcentage) / 100);
+                } elseif ($poids_min > $total_poids) {
+                    $restant = $poids_min - $total_poids;
+                    $pourcentage = ($restant * 100) / $poids_min;
+                    $salaires = $karama - (($karama * $pourcentage) / 100);
+                } else {
+                    $salaires = $karama;
+                }
+    
+                return $salaires;
+    
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            } finally {
+                $pdo = null;
+            }
+        }
+    
+        return null;
     }
+    
 ?>
