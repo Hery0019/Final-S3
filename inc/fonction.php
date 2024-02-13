@@ -433,5 +433,34 @@
                 $pdo = null;
             }
         }
-    }    
+    } 
+
+    function getSurfaceParcelleById($id) {
+        $pdo = dbconnect("mysql");
+
+        if ($pdo) {
+            try {
+                $query = "SELECT surface FROM parcelles WHERE idParcelle = ?";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$id]);
+
+                $result = $stmt->fetchColumn(); // Utilisation de fetchColumn pour obtenir directement la valeur de la colonne surface
+
+                return $result;
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }
+    
+    // function salaire($idPers) {
+    //     $requete1 = "select montant_kg from salaire";
+    //     $requete2 = "select poids_min from poids_min where idPers ".$idPers;
+    //     $requete3 = ""
+
+    //     $karama = $requete1 * $requete2;
+    // }
 ?>
