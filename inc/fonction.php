@@ -355,27 +355,25 @@
                 $pdo = null;
             }
         }
-    }
 
-    function compte_ligne($table) {
-        $pdo = dbconnect("mysql");
-    
-        if ($pdo) {
-            try {
-                $query = "SELECT count(*) FROM " . $table; // Concaténation du nom de la table
-                $stmt = $pdo->prepare($query);
-                $stmt->execute();
+        function compte_ligne($table) {
+            $pdo = dbconnect("mysql");
+
+            if ($pdo) {
+                try {
+                    $query = "SELECT count(*) from ".$table;
+                    $stmt = $pdo->prepare($query);
+      
+                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
         
-                $result = $stmt->fetchColumn(); // Utilisation de fetchColumn pour obtenir le résultat directement
-        
-                return $result;
-            } catch (PDOException $e) {
-                echo "Query failed: " . $e->getMessage();
-                return null;
+                    return $result;
+                } catch (PDOException $e) {
+                    echo "Query failed: " . $e->getMessage();
+                    return null;
+                }
             }
+            $pdo = null;
         }
-        $pdo = null;
-        return null;
     }
 
     function insert_generer($mois) {
@@ -386,10 +384,6 @@
                 $stmtDelete = $pdo->prepare($deleteQuery);
                 $stmtDelete->execute();
     
-<<<<<<< HEAD
-
-    function getSurfaceParcelleById($id) {
-=======
                 $insertQuery = "INSERT INTO regenerer (mois) VALUES (:mois)";
                 $stmtInsert = $pdo->prepare($insertQuery);
     
@@ -409,30 +403,10 @@
     }
 
     function poid_min($idPers, $pointMin) {
->>>>>>> fc3baba32c8f2cebdeb1191f49f7967ea3c7cfbe
         $pdo = dbconnect("mysql");
     
         if ($pdo) {
             try {
-<<<<<<< HEAD
-                $query = "SELECT surface FROM parcelles WHERE idParcelle = ?";
-                $stmt = $pdo->prepare($query);
-                $stmt->execute([$id]);
-    
-                $result = $stmt->fetchColumn(); // Utilisation de fetchColumn pour obtenir directement la valeur de la colonne surface
-    
-                return $result;
-            } catch (PDOException $e) {
-                echo "Query failed: " . $e->getMessage();
-                return null;
-            }
-        }
-        $pdo = null;
-        return null;
-    }
-    
-    
-=======
                 $checkQuery = "SELECT idPers FROM poids_min WHERE idPers = ?";
                 $stmtCheck = $pdo->prepare($checkQuery);
                 $stmtCheck->execute([$idPers]);
@@ -458,6 +432,34 @@
                 $pdo = null;
             }
         }
-    }    
->>>>>>> fc3baba32c8f2cebdeb1191f49f7967ea3c7cfbe
+    } 
+
+    function getSurfaceParcelleById($id) {
+        $pdo = dbconnect("mysql");
+
+        if ($pdo) {
+            try {
+                $query = "SELECT surface FROM parcelles WHERE idParcelle = ?";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$id]);
+
+                $result = $stmt->fetchColumn(); // Utilisation de fetchColumn pour obtenir directement la valeur de la colonne surface
+
+                return $result;
+            } catch (PDOException $e) {
+                echo "Query failed: " . $e->getMessage();
+                return null;
+            }
+        }
+        $pdo = null;
+        return null;
+    }
+    
+    function salaire($idPers, $idParcelle) {
+        $requete1 = "select montant_kg from salaire";
+        $requete2 = "select poids_min from poids_min where idPers= ".$idPers;
+        $requete3 = "select poids from histoCueillettes where choix_parcelle= ".$idParcelle;
+
+        $karama= $requete1 * $requete3;
+    }
 ?>
