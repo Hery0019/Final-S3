@@ -3,6 +3,8 @@
     $listeVarietes = select ("select * from variete");
     $listeParcelles = select("select * from parcelles");
     $newHisto = null;
+    $validation = "";
+    $messageError = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Vérifier si les champs sont définis et non vides
@@ -10,7 +12,12 @@
             $dateCueillette = $_POST['dateCueillette'];
             $idParcelle = $_POST['idParcelle'];
             $poidsNet = $_POST['poidsNet'];
-
+            
+        }
+        $validation = validation_ajax($poidsNet, $idParcelle, $dateCueillette, $idPers) ;
+        if ($validation == 'invalide') {
+            $messageError = "Votre poids net est au dessus des reserves";
+        } else {
             $newHisto = insert_histo_cueillette($idPers, $dateCueillette, $idParcelle, $poidsNet);
         }
     }
@@ -40,6 +47,7 @@
     </div>
     <div class="results">
     <center>
+        <span style="color: red;"><?php echo $messageError; ?></span>
         <form action="" method="post">
             <div class="login">
             <h3>Insertion de Cueillette</h3>
