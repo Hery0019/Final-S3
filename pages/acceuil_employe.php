@@ -76,4 +76,9 @@
             <h4>Montant Benefice</h4>
             <p class="info"><?php echo benefice($date_debut, $date_fin, $idPers) ?> Ar</p>
         </div>
+
+        <div class="composants">
+            <h4>Cout de revient</h4>
+            <p class="info"><?php echo cout($date_debut, $date_fin, $idPers) ?> Ar</p>
+        </div>
     </div>

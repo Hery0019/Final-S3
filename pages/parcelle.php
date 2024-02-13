@@ -1,5 +1,6 @@
 <?php 
     $listeParcelles = select("select * from vue_parcelle_variete");
+    $listeVarietes = select("select * from variete");
 
     $newParcelle = null;
 
@@ -43,8 +44,10 @@
                 <p>
                     <select name="" id="" class="form-control">
                         <option value="">--</option>
-                        <option value="">Tisane</option>
-                        <option value="">Canelle</option>
+                        <?php foreach ($listeVarietes as $listeVariete) {?>
+                                <option value="<?php echo $listeVariete['idVariete'] ?>"><?php echo $listeVariete['nomVariete'] ?></option>
+                        <?php } ?>
+        
                     </select>
                 </p>
                 <p> <input type="submit" value="Envoyer" class="form-control" id="submit"></p>
